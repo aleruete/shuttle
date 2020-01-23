@@ -26,16 +26,33 @@ server<- function(input, output, session) {
   
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
-    sidebarUserPanel(name = span(icon("user-astronaut"), user_info()$user),
+    sidebarUserPanel(name = span(icon("user-astronaut"), username()),
                      subtitle = span(icon("globe-americas"), input$mission),
                      image = img_url())
+  })
+  
+  username <- reactive({
+    if(user_info()$user_login) {
+      if (input$ichooseyou == 0) {
+        user_info()$user
+      }
+      else {
+        "Charizard"
+      }
+    } else {
+      return(NULL)
+    }
   })
   
   # Creating the user image----
   img_url <- reactive({
     if(user_info()$user_login) {
-      paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png")
-      # paste0("https://avatars3.githubusercontent.com/u/56633264?s=460&v=4")
+      if (input$ichooseyou == 0) {
+        paste0("https://avatars3.githubusercontent.com/u/56633264?s=460&v=4")
+      }
+      else {
+        paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png") #RAWR
+      }
     } else {
       return(NULL)
     }
@@ -50,7 +67,7 @@ server<- function(input, output, session) {
   stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
   
   output$links <- renderUI({
-    tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange)
+    span(tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange))
   })
   
   # Collapses the Sidebar before the user logs in----

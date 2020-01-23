@@ -1,6 +1,7 @@
 
 ui <- dashboardPage(title = "Shuttle",
-                    header = dashboardHeader(title = span(tagList(icon("space-shuttle", class = "icon_animation"), "Shuttle", class = "shuttle-title")),
+                    header = dashboardHeader(title = span(tagList(actionLink("ichooseyou", "", icon = icon("space-shuttle"), style='color: #FE01B2; margin: 0; display: inline;'), "Shuttle", class = "shuttle-title")),
+                                             # title = span(tagList(icon("space-shuttle", class = "icon_animation"), "Shuttle", class = "shuttle-title")),
                                              dropdownMenuOutput("messages"),
                                              dropdownMenuOutput("notifications"),
                                              dropdownMenuOutput("tasks")
