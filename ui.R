@@ -43,7 +43,7 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("weather1_tabname", weather1UI("weather1")),
                         tabItem("datatable1_tabname", datatable1UI("datatable1")),
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
-                        tabItem("webscrape1_tabname", timeseries1UI("webscrape1")),
+                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
                         #Lesson 2
                         tabItem("datatable2_tabname", datatable2UI("datatable2"))
                       ),

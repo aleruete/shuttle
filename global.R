@@ -17,10 +17,13 @@ library(rvest)
 source("login.R")
 source("home/home.R")
 source("home/googleRSS.R")
+#Lesson 1 Files
 source("lesson1/geyser1.R")
 source("lesson1/weather1.R")
 source("lesson1/datatable1.R")
 source("lesson1/timeseries1.R")
+source("lesson1/webscrape1.R")
+#Lesson 2 Files
 source("lesson2/datatable2.R")
 
 # Sets the time zone

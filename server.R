@@ -20,6 +20,8 @@ server<- function(input, output, session) {
   
   callModule(timeseries1, "timeseries1")
   
+  callModule(webscrape1, "webscrape1")
+  
   callModule(home, "home")
   
   callModule(datatable2, "datatable2")
