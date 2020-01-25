@@ -65,13 +65,13 @@ ui <- dashboardPage(title = "Shuttle",
                                 color: #f2f2f2;
                               }
     ')),
-                        # Creates the scrolling text in the top right corner
-                        tags$script(
-                          HTML('
-           $(document).ready(function() {
-            $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
-           })
-           ')),
+           #              # Creates the scrolling text in the top right corner
+           #              tags$script(
+           #                HTML('
+           # $(document).ready(function() {
+           #  $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
+           # })
+           # ')),
                         # Keeps the app alive when a process is taking a long time
                         tags$head(
                           HTML(
