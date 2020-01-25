@@ -13,13 +13,13 @@ webscrape1 <- function(input, output, session) {
   output$webscrape1_ui <- renderUI({
     
     tagList(
-      h2("Time Series: Step 1"),
+      h2("Web Scrape: Step 1"),
       
       div(
         fluidRow(
           
-          box(width = 10, title = "GDP Data from Federal Reserve Economic Database",
-              dygraphs::dygraphOutput(session$ns("webscrape"))
+          box(width = 10, title = "Topics Scraped from CNN World Markets/Asia",
+              DT::dataTableOutput(session$ns("webscrape_table"))
               
           )
         )
@@ -30,12 +30,26 @@ webscrape1 <- function(input, output, session) {
   
   #Server Section----
   
-  url <- 'https://money.cnn.com/data/world_markets/asia/'
-  webpage <- read_html(url)
+  # Scraping the data
+  webscrape_data <- reactive({
+    
+    url <- 'https://money.cnn.com/data/world_markets/asia/' # the website that we are scraping
+    
+    url %>%
+      read_html() %>%
+      html_nodes(.,'#section_latestnews li') %>% # we figure out which element to target by using the SelectorGadget plugin
+      html_text() %>%
+      trimws() %>%
+      tibble()
+
+  })
   
-  table_html <- html_nodes(webpage,'#section_latestnews li')
-  table_text <- html_text(table_html)
-  table_text <- trimws(table_text)
-  table_data <- data.frame(table_data)
+  # Rendering the scraped data into a datatable
+  output$webscrape_table <- DT::renderDataTable({
+    req(webscrape_data())
+    
+    webscrape_data()
+    
+  })
   
 }

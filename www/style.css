@@ -137,19 +137,12 @@
   75% {color: orange;}
   100%  {color: red;}
 }
-*/
-@keyframes icon {
-  0% {color: #FF1493;}
-  25% {color: #FF1493;}
-  50% {color: #FF1493;}
-  75% {color: #FF1493;}
-  100%  {color: #FF1493;}
-}
 
 .icon_animation {
   animation: icon 20s linear infinite;
   color: #FE01B2;
 }
+*/
 
 .skin-blue .main-header .logo:hover {
   background-color: #222d32;

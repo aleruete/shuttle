@@ -20,22 +20,45 @@ server<- function(input, output, session) {
   
   callModule(timeseries1, "timeseries1")
   
+  callModule(webscrape1, "webscrape1")
+  
   callModule(home, "home")
+  
+  callModule(geyser2, "geyser2")
   
   callModule(datatable2, "datatable2")
   
+  callModule(timeseries2, "timeseries2")
+  
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
-    sidebarUserPanel(name = span(icon("user-astronaut"), user_info()$user),
+    sidebarUserPanel(name = span(icon("user-astronaut"), username()),
                      subtitle = span(icon("globe-americas"), input$mission),
                      image = img_url())
+  })
+  
+  username <- reactive({
+    if(user_info()$user_login) {
+      if (input$ichooseyou == 0) {
+        user_info()$user
+      }
+      else {
+        "Charizard"
+      }
+    } else {
+      return(NULL)
+    }
   })
   
   # Creating the user image----
   img_url <- reactive({
     if(user_info()$user_login) {
-      paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png")
-      # paste0("https://avatars3.githubusercontent.com/u/56633264?s=460&v=4")
+      if (input$ichooseyou == 0) {
+        paste0("https://avatars3.githubusercontent.com/u/56633264?s=460&v=4")
+      }
+      else {
+        paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png") #RAWR
+      }
     } else {
       return(NULL)
     }
@@ -50,7 +73,7 @@ server<- function(input, output, session) {
   stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
   
   output$links <- renderUI({
-    tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange)
+    span(tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange))
   })
   
   # Collapses the Sidebar before the user logs in----
@@ -78,8 +101,9 @@ server<- function(input, output, session) {
                            
                   ),
                   menuItem("Lesson 2",
-                           menuSubItem("Geyser 2", icon = icon("chart-bar")),
-                           menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table"))
+                           menuSubItem("Geyser 2", tabName = "geyser2_tabname", icon = icon("chart-bar")),
+                           menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table")),
+                           menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname", icon = icon("chart-line"))
                   )
       )
     } 

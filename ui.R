@@ -1,6 +1,7 @@
 
 ui <- dashboardPage(title = "Shuttle",
-                    header = dashboardHeader(title = span(tagList(icon("space-shuttle", class = "icon_animation"), "Shuttle", class = "shuttle-title")),
+                    header = dashboardHeader(title = span(tagList(actionLink("ichooseyou", "", icon = icon("space-shuttle"), style='color: #FE01B2; margin: 0; display: inline;'), "Shuttle", class = "shuttle-title")),
+                                             # title = span(tagList(icon("space-shuttle", class = "icon_animation"), "Shuttle", class = "shuttle-title")),
                                              dropdownMenuOutput("messages"),
                                              dropdownMenuOutput("notifications"),
                                              dropdownMenuOutput("tasks")
@@ -42,9 +43,11 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("weather1_tabname", weather1UI("weather1")),
                         tabItem("datatable1_tabname", datatable1UI("datatable1")),
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
-                        tabItem("webscrape1_tabname", timeseries1UI("webscrape1")),
+                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
                         #Lesson 2
-                        tabItem("datatable2_tabname", datatable2UI("datatable2"))
+                        tabItem("geyser2_tabname", geyser2UI("geyser2")),
+                        tabItem("datatable2_tabname", datatable2UI("datatable2")),
+                        tabItem("timeseries2_tabname", timeseries2UI("timeseries2"))
                       ),
                       
                       # This sets the style for the text in the top right
@@ -62,13 +65,13 @@ ui <- dashboardPage(title = "Shuttle",
                                 color: #f2f2f2;
                               }
     ')),
-                        # Creates the scrolling text in the top right corner
-                        tags$script(
-                          HTML('
-           $(document).ready(function() {
-            $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
-           })
-           ')),
+           #              # Creates the scrolling text in the top right corner
+           #              tags$script(
+           #                HTML('
+           # $(document).ready(function() {
+           #  $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
+           # })
+           # ')),
                         # Keeps the app alive when a process is taking a long time
                         tags$head(
                           HTML(

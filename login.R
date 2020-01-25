@@ -24,7 +24,7 @@ output$login_ui <- renderUI({
                    tags$p("Hold on to your butts")
                    ),
           
-          textInput(session$ns("user_name"), "User Name:"),
+          textInput(session$ns("user_name"), "User Name:", value = "shuttleds"),
           
           #passwordInput(session$ns("password"), "Password:"),
           
@@ -44,10 +44,10 @@ output$login_ui <- renderUI({
 
 observeEvent(input$login_button, {
   
-  Username <- "Charizard"
+  Username <- input$user_name
   #Password <- "admin_pass"
   
-  if (Username != "Charizard") {
+  if (Username != "shuttleds") {
     output$login_error <- renderUI({
       p("Invalid username!", style = "color: red; font-weight: bold; padding-top: 5px;", class = "text-center")
     })
