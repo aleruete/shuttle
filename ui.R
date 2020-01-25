@@ -46,7 +46,8 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
                         #Lesson 2
                         tabItem("geyser2_tabname", geyser2UI("geyser2")),
-                        tabItem("datatable2_tabname", datatable2UI("datatable2"))
+                        tabItem("datatable2_tabname", datatable2UI("datatable2")),
+                        tabItem("timeseries2_tabname", timeseries2UI("timeseries2"))
                       ),
                       
                       # This sets the style for the text in the top right

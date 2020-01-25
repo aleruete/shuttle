@@ -28,6 +28,8 @@ server<- function(input, output, session) {
   
   callModule(datatable2, "datatable2")
   
+  callModule(timeseries2, "timeseries2")
+  
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
     sidebarUserPanel(name = span(icon("user-astronaut"), username()),
@@ -100,7 +102,8 @@ server<- function(input, output, session) {
                   ),
                   menuItem("Lesson 2",
                            menuSubItem("Geyser 2", tabName = "geyser2_tabname", icon = icon("chart-bar")),
-                           menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table"))
+                           menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table")),
+                           menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname", icon = icon("chart-line"))
                   )
       )
     } 
