@@ -39,7 +39,7 @@ timeseries1 <- function(input, output, session) {
   output$timeseries <- dygraphs::renderDygraph({
     
     macrodata() %>%
-      tibble::column_to_rownames(., var = "date") %>%
+      tibble::column_to_rownames(var = "date") %>%
       xts::as.xts() %>%
       dygraphs::dygraph() %>%
       dygraphs::dyAxis("y", label = "US GDP") %>%
