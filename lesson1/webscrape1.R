@@ -30,43 +30,26 @@ webscrape1 <- function(input, output, session) {
   
   #Server Section----
   
+  # Scraping the data
   webscrape_data <- reactive({
     
-    url <- 'https://money.cnn.com/data/world_markets/asia/'
+    url <- 'https://money.cnn.com/data/world_markets/asia/' # the website that we are scraping
     
     url %>%
       read_html() %>%
-      html_nodes(.,'#section_latestnews li') %>%
+      html_nodes(.,'#section_latestnews li') %>% # we figure out which element to target by using the SelectorGadget plugin
       html_text() %>%
       trimws() %>%
       tibble()
-      # data.frame() %>%
-      # tibble()
-    
-    
-    # webpage <- read_html(url)
-    # table_html <- html_nodes(webpage,'#section_latestnews li')
-    # table_text <- html_text(table_html)
-    # table_text <- trimws(table_text)
-    # table_data <- data.frame(table_text)
 
   })
   
+  # Rendering the scraped data into a datatable
   output$webscrape_table <- DT::renderDataTable({
     req(webscrape_data())
     
     webscrape_data()
     
   })
-  
-  
-  
-  # url <- 'https://money.cnn.com/data/world_markets/asia/'
-  # webpage <- read_html(url)
-  # 
-  # table_html <- html_nodes(webpage,'#section_latestnews li')
-  # table_text <- html_text(table_html)
-  # table_text <- trimws(table_text)
-  # table_data <- data.frame(table_text)
   
 }
