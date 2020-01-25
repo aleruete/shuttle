@@ -24,6 +24,8 @@ server<- function(input, output, session) {
   
   callModule(home, "home")
   
+  callModule(geyser2, "geyser2")
+  
   callModule(datatable2, "datatable2")
   
   # Rendering the Userpanel----
@@ -97,7 +99,7 @@ server<- function(input, output, session) {
                            
                   ),
                   menuItem("Lesson 2",
-                           menuSubItem("Geyser 2", icon = icon("chart-bar")),
+                           menuSubItem("Geyser 2", tabName = "geyser2_tabname", icon = icon("chart-bar")),
                            menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table"))
                   )
       )

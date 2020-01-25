@@ -45,6 +45,7 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
                         tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
                         #Lesson 2
+                        tabItem("geyser2_tabname", geyser2UI("geyser2")),
                         tabItem("datatable2_tabname", datatable2UI("datatable2"))
                       ),
                       

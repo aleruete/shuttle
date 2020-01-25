@@ -24,6 +24,7 @@ source("lesson1/datatable1.R")
 source("lesson1/timeseries1.R")
 source("lesson1/webscrape1.R")
 #Lesson 2 Files
+source("lesson2/geyser2.R")
 source("lesson2/datatable2.R")
 
 # Sets the time zone
