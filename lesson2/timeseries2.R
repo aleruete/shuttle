@@ -1,3 +1,5 @@
+require(dygraphs)
+
 #UI Output/Namespace Section----
 timeseries2UI <- function(id) {
   ns <- NS(id)
@@ -26,7 +28,7 @@ timeseries2 <- function(input, output, session) {
           ),
           
           box(width = 10,
-              dygraphs::dygraphOutput(session$ns("timeseries_graph")),
+              dygraphOutput(session$ns("timeseries_graph")),
               hr(),
               plotOutput(session$ns("timeseries_chart"))
               
@@ -45,19 +47,24 @@ timeseries2 <- function(input, output, session) {
     
   })
   
+  # So the stock name reacts to the update button
+  stockname <- eventReactive(input$update, {
+    input$symbol
+  })
+  
   # Creating the candlestick graph using the dygraphs package
   # Great place to learn more about dygraphs https://rstudio.github.io/dygraphs/
-  output$timeseries_graph <- dygraphs::renderDygraph({
+  output$timeseries_graph <- renderDygraph({
     req(stockdata)
     
     stockdata() %>%
       select(date,open,high,low,close) %>%
-      tibble::column_to_rownames(var = "date") %>%
+      column_to_rownames(var = "date") %>%
       xts::as.xts() %>%
-      dygraphs::dygraph(main = toupper(input$symbol)) %>%
-      dygraphs::dyAxis("y", label = "Stock Price") %>%
-      dygraphs::dyCandlestick() %>% # can add compress = TRUE here if you want quarterly/monthly candles
-      dygraphs::dyRangeSelector()
+      dygraph(main = toupper(stockname())) %>%
+      dyAxis("y", label = "Stock Price") %>%
+      dyCandlestick() %>% # can add compress = TRUE here if you want quarterly/monthly candles
+      dyRangeSelector()
     
   })
   
@@ -68,10 +75,10 @@ timeseries2 <- function(input, output, session) {
 
     stockdata() %>%
       select("date","open","high","low","close","volume") %>%
-      tibble::column_to_rownames(., var = "date") %>%
-      as.xts() %>%
+      column_to_rownames(., var = "date") %>%
+      xts::as.xts() %>%
       chartSeries(.,
-                  name = toupper(input$symbol),
+                  name = toupper(stockname()),
                   type = "candlesticks",
                   col.vol = FALSE,
                   multi.col = FALSE,
