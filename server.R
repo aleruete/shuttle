@@ -12,6 +12,10 @@ server<- function(input, output, session) {
   # Calling all the modules that are being used----
   user_info <- callModule(login, "login")
   
+  callModule(home, "home")
+  
+  # Lesson 1
+  
   callModule(geyser1, "geyser1")
   
   callModule(weather1, "weather1")
@@ -21,8 +25,8 @@ server<- function(input, output, session) {
   callModule(timeseries1, "timeseries1")
   
   callModule(webscrape1, "webscrape1")
-  
-  callModule(home, "home")
+
+  # Lesson 2
   
   callModule(geyser2, "geyser2")
   
@@ -37,6 +41,7 @@ server<- function(input, output, session) {
                      image = img_url())
   })
   
+  # Creating the username----
   username <- reactive({
     if(user_info()$user_login) {
       if (input$ichooseyou == 0) {
@@ -54,7 +59,7 @@ server<- function(input, output, session) {
   img_url <- reactive({
     if(user_info()$user_login) {
       if (input$ichooseyou == 0) {
-        paste0("https://avatars3.githubusercontent.com/u/56633264?s=460&v=4")
+        paste0("https://avatars2.githubusercontent.com/u/54476948?s=460&v=4")
       }
       else {
         paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png") #RAWR
