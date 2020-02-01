@@ -41,18 +41,12 @@ datatable2 <- function(input, output, session) {
     req(standard_data())
                 
     standard_data() %>%
-      datatable(.,
+      DT::datatable(.,
                 class = 'cell-border stripe',
                 selection = 'none',
                 rownames=FALSE)
     
   })
-  
-  # clicked_cell <- reactiveValues()
-  # 
-  # observe(
-  #   clicked_cell <- input$tableId_cell_clicked
-  # )
   
   output$cell_info <- renderPrint({
     input$standard_table_cell_clicked

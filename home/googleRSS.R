@@ -1,4 +1,5 @@
-
+require(xml2)
+require(lubridate)
 
 safe_xml_find_first <- safely(xml_find_first)
 safe_xml_find_all <- safely(xml_find_all)

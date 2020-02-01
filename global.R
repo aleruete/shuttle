@@ -1,16 +1,8 @@
 # Loading all the packages needed
 library(shiny)
 library(shinydashboard)
-library(shinycssloaders)
 library(shinyjs)
-library(htmltools)
 library(tidyverse)
-library(lubridate)
-library(openxlsx)
-library(DT)
-library(xts)
-library(dygraphs)
-library(tidyquant)
 library(rvest)
 
 # Loading all the necessary source files
@@ -33,6 +25,6 @@ Sys.setenv(TZ="America/New_York")
 
 # A very simple username/password table
 user_base <- tibble::tibble(
-  user = c("Charizard", "Guest")
+  user = c("Admin", "Guest")
   # password = c("admin_pass", "guest_pass")
 )

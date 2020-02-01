@@ -1,3 +1,5 @@
+require(tidyquant)
+
 homeUI <- function(id) {
   ns <- NS(id)
   
@@ -205,7 +207,7 @@ home <- function(input, output, session) {
                  div(style = "padding-left: 15px; padding-top: 15px;", #adds the 15px padding for the stock ticker row
                  fluidRow(class = "shuttle-box-4",
                           column(12,
-                                 plotOutput(session$ns("ticker_plot")) %>% withSpinner(color = "#FE01B2"))))
+                                 plotOutput(session$ns("ticker_plot")) %>% shinycssloaders::withSpinner(color = "#FE01B2"))))
                  )),
           column(4, div(style = "padding-right: 15px;", # Only need padding-right bc the box to the left has padding already
                         fluidRow(
@@ -468,7 +470,7 @@ output$ticker_plot <- renderPlot({
   ticker_data() %>%
     select("date","open","high","low","close","volume") %>%
     tibble::column_to_rownames(., var = "date") %>%
-    as.xts() %>%
+    xts::as.xts() %>%
     chartSeries(.,
                 name = toupper(input$ticker_search),
                 type = "candlesticks",
@@ -490,8 +492,8 @@ ticker_list <- reactive({
   url <- 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
   webpage <- read_html(url)
   
-  table_html <- html_nodes(webpage,'#constituents td')
-  table_data <- html_text(table_html)
+  table_html <- rvest::html_nodes(webpage,'#constituents td')
+  table_data <- rvest::html_text(table_html)
   table_data <-trimws(table_data)
   table_data <-data.frame(table_data)
   
