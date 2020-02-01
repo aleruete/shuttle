@@ -1,15 +1,14 @@
 
 ui <- dashboardPage(title = "Shuttle",
-                    header = dashboardHeader(title = span(tagList(actionLink("ichooseyou", "", icon = icon("space-shuttle"), style='color: #FE01B2; margin: 0; display: inline;'), "Shuttle", class = "shuttle-title")),
-                                             # title = span(tagList(icon("space-shuttle", class = "icon_animation"), "Shuttle", class = "shuttle-title")),
-                                             dropdownMenuOutput("messages"),
-                                             dropdownMenuOutput("notifications"),
-                                             dropdownMenuOutput("tasks")
+                    header = dashboardHeader(title = span(tagList(actionLink("ichooseyou", "", icon = icon("space-shuttle"), style='color: #FE01B2; margin: 0; display: inline;'), "Shuttle", class = "shuttle-title"))
+                                             # dropdownMenuOutput("messages"),
+                                             # dropdownMenuOutput("notifications"),
+                                             # dropdownMenuOutput("tasks")
                     ),
                     
                     dashboardSidebar(
                       
-                      # Settings for the User Panel
+                      # Settings for the User Panel ----
                       div(style = "border-bottom: 4px double #f2f2f2; border-top: 1px solid #f2f2f2;",
                           div(
                             tags$head( #having this here loads the style.css sheet as soon as the app is launched
@@ -20,6 +19,7 @@ ui <- dashboardPage(title = "Shuttle",
                             uiOutput("links"), class = "links")
                       ),
                       
+                      # Settings for the Mission Selection ----
                       div(style = "margin-top: 10px;",
                           
                           collapsed = TRUE, sidebarMenuOutput("sidebar"),
@@ -31,6 +31,7 @@ ui <- dashboardPage(title = "Shuttle",
                           
                     ),
                     
+                    # Settings for the sidebar display ----
                     dashboardBody(
                       shinyjs::useShinyjs(),
                       tags$head(tags$style(".table{margin: 0 auto;}")),
@@ -50,7 +51,7 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("timeseries2_tabname", timeseries2UI("timeseries2"))
                       ),
                       
-                      # This sets the style for the text in the top right
+                      # Sets the style for the text in the top right
                       tags$head(
                         tags$style(
                           HTML('
