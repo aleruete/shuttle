@@ -30,8 +30,6 @@ server<- function(input, output, session) {
   
   callModule(geyser2, "geyser2")
   
-  callModule(geyser2, "geyser2")
-  
   callModule(datatable2, "datatable2")
   
   callModule(timeseries2, "timeseries2")
