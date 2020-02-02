@@ -48,7 +48,9 @@ ui <- dashboardPage(title = "Shuttle",
                         #Lesson 2
                         tabItem("geyser2_tabname", geyser2UI("geyser2")),
                         tabItem("datatable2_tabname", datatable2UI("datatable2")),
-                        tabItem("timeseries2_tabname", timeseries2UI("timeseries2"))
+                        tabItem("timeseries2_tabname", timeseries2UI("timeseries2")),
+                        #Lesson 3
+                        tabItem("weather3_tabname", weather3UI("weather3"))
                       ),
                       
                       # Sets the style for the text in the top right

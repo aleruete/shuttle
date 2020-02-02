@@ -34,6 +34,10 @@ server<- function(input, output, session) {
   
   callModule(timeseries2, "timeseries2")
   
+  # Lesson 3
+  
+  callModule(weather3, "weather3")
+  
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
     sidebarUserPanel(name = span(icon("user-astronaut"), username()),
@@ -109,6 +113,9 @@ server<- function(input, output, session) {
                            menuSubItem("Geyser 2", tabName = "geyser2_tabname", icon = icon("chart-bar")),
                            menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table")),
                            menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname", icon = icon("chart-line"))
+                  ),
+                  menuItem("Lesson 3",
+                           menuSubItem("Weather 3", tabName = "weather3_tabname", icon = icon("sun"))
                   )
       )
     } 

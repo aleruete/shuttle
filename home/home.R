@@ -85,25 +85,6 @@ home <- function(input, output, session) {
   background: #555;
 }
     '))),
-                   tags$script('
-          $(document).ready(function () {
-                  navigator.geolocation.getCurrentPosition(onSuccess, onError);
-
-                  function onError (err) {
-                  Shiny.onInputChange("home-geolocation", false);
-                  }
-
-                  function onSuccess (position) {
-                  setTimeout(function () {
-                  var coords = position.coords;
-                  console.log(coords.latitude + ", " + coords.longitude);
-                  Shiny.onInputChange("home-geolocation", coords.latitude + ", " + coords.longitude);
-                  Shiny.onInputChange("home-lat:", coords.latitude);
-                  Shiny.onInputChange("home-long", coords.longitude);
-                  }, 1100)
-                  }
-                  });
-                  '),
                    column(7,
                           fluidRow(class = "shuttle-box-1",
                                    tags$head(tags$style("
@@ -119,13 +100,8 @@ home <- function(input, output, session) {
                                        div(style = "padding-left: 15px;",
                                            icon("calendar-alt")),
                                        textOutput(session$ns("currentDate")), class = "date"),
-                                   # div(style = "padding-top: 10px;",
-                                   #     htmlOutput(session$ns("weather")))
-                          # ),
-                          # div(style = "padding-top: 15px;",
                           fluidRow(class = "shuttle-box-2",
                                    column(4,
-                                          # dateInput(session$ns("start_date"), label = "Start Date", value = "2017-01-01"),
                                           selectizeInput(
                                             inputId = session$ns("control_gnews1"),
                                             label = NULL,
@@ -140,7 +116,6 @@ home <- function(input, output, session) {
                                           
                                    ),
                                    column(4,
-                                          # dateInput(session$ns("end_date"), label = "End Date", value = Sys.Date()),
                                           selectizeInput(
                                             inputId = session$ns("control_gnews2"),
                                             label = NULL,
@@ -175,8 +150,6 @@ home <- function(input, output, session) {
                           hr(),
                           fluidRow(class = "shuttle-box-2",
                                    column(4,
-                                          # textInput(session$ns("ticker_search"), label = "Stock Ticker", value = "AMZN")
-                                          # uiOutput(session$ns("tickerSearchbar"))
                                           selectizeInput(
                                             inputId = session$ns("ticker_search"),
                                             label = "S&P500 Ticker",
@@ -238,48 +211,6 @@ home <- function(input, output, session) {
   output$start <- renderUI({includeMarkdown(paste0("home/start.md"))})
   
   output$links <- renderUI({includeMarkdown(paste0("home/links.md"))})
-
-  
-  vals <- reactiveValues()
-  observe({
-    vals$lat <- input$lat
-    vals$long <- input$long
-  })
-
-  
-  observeEvent(vals$long, {
-    base <- "https://nominatim.openstreetmap.org/reverse?format=json&"
-
-    url <- paste0(base,'lat=',vals$lat,'&lon=',vals$long)
-
-    loc <- read_html(url) %>%
-      html_nodes("p") %>%
-      html_text()
-
-    p1 <- gsub("[][!#$%()*,.:;<=>@^_`|~.{}]", "", loc)
-
-    p2 <- str_split(p1, '"\"')
-
-    n_city <-which(grepl("city", p2[[1]])) + 1
-    n_state <-which(grepl("state", p2[[1]])) + 1
-
-    city <- p2[[1]][n_city]
-    state <- p2[[1]][n_state]
-
-
-    vals$loc <- paste(city, state, sep = ", ")
-  })
-  
-  
-
-  output$weather <- renderUI({
-    req(vals$loc)
- 
-    dark.base1 <- "https://forecast.io/embed/#"
-    call.dark1 <- paste(dark.base1, "lat=", vals$lat, "&lon=", vals$long, "&name=", vals$loc, sep="")
-    tags$iframe(src=call.dark1, height=230, width=615, frameborder = 0)
-
-  })
 
   
   output$currentTime <- renderText({
@@ -383,7 +314,7 @@ home <- function(input, output, session) {
     req(length(input$articles1)>0)
     refresh() #refreshes the extract
     
-    tb<-googleRSS(paste0("https://news.google.com/rss",gfeed1$choice)) %>%
+    tb <- googleRSS(paste0("https://news.google.com/rss",gfeed1$choice)) %>%
       select("item_title","item_link") %>%
       lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
       lapply(., function(x) gsub("\u00E2", "'", x)) %>% #removes the a-hat
@@ -416,7 +347,7 @@ home <- function(input, output, session) {
     req(length(input$articles1)>0)
     refresh() #refreshes the extract
     
-    tb<-googleRSS(paste0("https://news.google.com/rss",gfeed2$choice)) %>%
+    tb <- googleRSS(paste0("https://news.google.com/rss",gfeed2$choice)) %>%
       select("item_title","item_link") %>%
       lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
       lapply(., function(x) gsub("\u00E2", "'", x)) %>% #removes the a-hat
@@ -453,16 +384,6 @@ ticker_data <- reactive({
   
 })
 
-stuff <- function(df){
-  df[,6]
-}
-
-dxscoreTA <- newTA(FUN   = stuff, # chartSeries will pass whole dataset, 
-                   # I just want to process the last column
-                   type   = 'h',
-                   legend.name = "My_TA",
-                   col   = "blue"
-)
 
 output$ticker_plot <- renderPlot({
   req(input$ticker_search > 0 & input$start_date > 0 & input$end_date > 0)
@@ -492,10 +413,10 @@ ticker_list <- reactive({
   url <- 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
   webpage <- read_html(url)
   
-  table_html <- rvest::html_nodes(webpage,'#constituents td')
-  table_data <- rvest::html_text(table_html)
-  table_data <-trimws(table_data)
-  table_data <-data.frame(table_data)
+  table_html <- html_nodes(webpage,'#constituents td')
+  table_data <- html_text(table_html)
+  table_data <- trimws(table_data)
+  table_data <- data.frame(table_data)
   
   
   nrows <- nrow(table_data)

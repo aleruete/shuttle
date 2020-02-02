@@ -19,6 +19,8 @@ source("lesson1/webscrape1.R")
 source("lesson2/geyser2.R")
 source("lesson2/datatable2.R")
 source("lesson2/timeseries2.R")
+#Lesson 3 Files
+source("lesson3/weather3.R")
 
 # Sets the time zone
 Sys.setenv(TZ="America/New_York")
