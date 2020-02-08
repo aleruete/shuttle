@@ -26,8 +26,6 @@ output$login_ui <- renderUI({
           
           textInput(session$ns("user_name"), "User Name:", value = github_username),
           
-          #passwordInput(session$ns("password"), "Password:"),
-          
           div(
             style = "text-align: center;",
             actionButton(session$ns("login_button"), "Launch", class = "btn-primary", style = "color: white;")
@@ -45,7 +43,6 @@ output$login_ui <- renderUI({
 observeEvent(input$login_button, {
   
   Username <- input$user_name
-  #Password <- "admin_pass"
   
   if (Username != "shuttleds") {
     output$login_error <- renderUI({

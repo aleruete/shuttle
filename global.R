@@ -29,9 +29,3 @@ source("base/lessons/lesson3/weather3.R")
 # Find your time zone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # The function OlsonNames() also has a list of time zones
 Sys.setenv(TZ="America/New_York")
-
-# A very simple username/password table
-user_base <- tibble::tibble(
-  user = c("Admin", "Guest")
-  # password = c("admin_pass", "guest_pass")
-)
