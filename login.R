@@ -24,7 +24,7 @@ output$login_ui <- renderUI({
                    tags$p("Hold on to your butts")
                    ),
           
-          textInput(session$ns("user_name"), "User Name:", value = "shuttleds"),
+          textInput(session$ns("user_name"), "User Name:", value = github_username),
           
           #passwordInput(session$ns("password"), "Password:"),
           

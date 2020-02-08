@@ -26,7 +26,8 @@ source("lesson2/timeseries2.R")
 source("lesson3/weather3.R")
 
 # Sets the time zone
-# Find your timezone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+# Find your time zone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+# The function OlsonNames() also has a list of time zones
 Sys.setenv(TZ="America/New_York")
 
 # A very simple username/password table

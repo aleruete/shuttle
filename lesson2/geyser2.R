@@ -35,7 +35,7 @@ geyser2 <- function(input, output, session) {
               
               h4("Plot Controls"),
               selectInput(session$ns("bins"), label = "Number of bins:",
-                          choices = c(10, 20, 35, 50), selected = 50),
+                          choices = c(10, 20, 50), selected = 50),
               
               sliderInput(session$ns("bandwidth"), label = "Bandwidth adjustment:",
                           min = 0.2, max = 2, value = 1, step = 0.2)

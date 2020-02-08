@@ -74,9 +74,11 @@ server<- function(input, output, session) {
   })
   
   # Creating the hyperlinks and icons----
+  github_username <<- "shuttleds" #type your github username in here
+  
   instagram <- a(icon("instagram"), href="https://www.instagram.com/shuttleds/", target="_blank")
   twitter <- a(icon("twitter"), href="https://twitter.com/shuttledatasci/", target="_blank")
-  github <- a(icon("github-square"), href="https://github.com/shuttleds/", target="_blank")
+  github <- a(icon("github-square"), href=paste0("https://github.com/",github_username), target="_blank")
   youtube <- a(icon("youtube"), href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q", target="_blank")
   stackoverflow <- a(icon("stack-overflow"), href="https://stackoverflow.com/questions/tagged/shiny", target="_blank")
   stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
