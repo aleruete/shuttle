@@ -204,13 +204,13 @@ home <- function(input, output, session) {
     
   })
   
-  output$about <- renderUI({includeMarkdown(paste0("home/about.md"))})
+  output$about <- renderUI({includeMarkdown(paste0("base/home/about.md"))})
   
-  output$sds <- renderUI({includeMarkdown(paste0("home/sds.md"))})
+  output$sds <- renderUI({includeMarkdown(paste0("base/home/sds.md"))})
   
-  output$start <- renderUI({includeMarkdown(paste0("home/start.md"))})
+  output$start <- renderUI({includeMarkdown(paste0("base/home/start.md"))})
   
-  output$links <- renderUI({includeMarkdown(paste0("home/links.md"))})
+  output$links <- renderUI({includeMarkdown(paste0("base/home/links.md"))})
 
   
   output$currentTime <- renderText({
