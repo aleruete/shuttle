@@ -1,4 +1,4 @@
-# Shuttle
+# :rocket: Shuttle
 A place for getting excited and curious about data science! For all the videos that go along with the lessons, visit [Shuttle Data Science](https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q) on YouTube.
 
 ### How To Use
@@ -9,10 +9,12 @@ A place for getting excited and curious about data science! For all the videos t
     * ui.R, server.R, global.R, login.R
 
 ### Version 0.1
-This is a very early version of this project. All suggestions for improvements are welcome. :)
+Still in alpha. All suggestions for improvements are welcome. :smile:
+
+#### 3.. 2.. 1..
+![](https://thumbs.gfycat.com/FastSecondGalapagosmockingbird-size_restricted.gif)
 
 ---
 
 ## Contact
-Dan Otto ShuttleDataScience@gmail.com
-
+ShuttleDataScience@gmail.com  
