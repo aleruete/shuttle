@@ -90,33 +90,6 @@ $(document).on('shiny:disconnected', function(event) {
 clearInterval(socket_timeout_interval)
 });
 </script>
-                        ")),
-                      
-                      #Creates the scrollbar in the About tab          
-                      tags$head(
-                        tags$style(
-                          HTML('
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-    ')))
+                        "))
                     )
 )
