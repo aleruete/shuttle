@@ -7,7 +7,6 @@ ui <- dashboardPage(title = "Shuttle",
                     ),
                     
                     dashboardSidebar(
-                      
                       # Settings for the User Panel ----
                       div(style = "border-bottom: 4px double #f2f2f2; border-top: 1px solid #f2f2f2;",
                           div(
@@ -26,9 +25,7 @@ ui <- dashboardPage(title = "Shuttle",
                           selectInput("mission", "Mission:",
                                       c("Gemini","Apollo"))
                           # uiOutput( "browser")
-                          )
-                      
-                          
+                      )
                     ),
                     
                     # Settings for the sidebar display ----
@@ -54,6 +51,8 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("weather3_tabname", weather3UI("weather3"))
                       ),
                       
+                      # HTML affecting the entire app ----
+                      
                       # Sets the style for the text in the top right
                       tags$head(
                         tags$style(
@@ -68,18 +67,17 @@ ui <- dashboardPage(title = "Shuttle",
                                 overflow: hidden;
                                 color: #f2f2f2;
                               }
-    ')),
-           #              # Creates the scrolling text in the top right corner
-           #              tags$script(
-           #                HTML('
-           # $(document).ready(function() {
-           #  $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
-           # })
-           # ')),
-                        # Keeps the app alive when a process is taking a long time
-                        tags$head(
-                          HTML(
-                            "
+    '))),
+                      #              # Creates the scrolling text in the top right corner
+                      #              tags$script(
+                      #                HTML('
+                      # $(document).ready(function() {
+                      #  $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
+                      # })
+                      # ')),
+                      # Keeps the app alive when a process is taking a long time
+                      tags$head(
+                        HTML("
                             <script>
 var socket_time_interval
 var n = 0
@@ -92,14 +90,33 @@ $(document).on('shiny:disconnected', function(event) {
 clearInterval(socket_timeout_interval)
 });
 </script>
-"
-                          )
-                        )
-                        
-                        
-                        
-                        
-                        
-                      )
+                        ")),
+                      
+                      #Creates the scrollbar in the About tab          
+                      tags$head(
+                        tags$style(
+                          HTML('
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 8px;
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+    ')))
                     )
 )
