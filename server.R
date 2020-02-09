@@ -14,6 +14,8 @@ server<- function(input, output, session) {
   
   callModule(home, "home")
   
+  callModule(welcome, "welcome")
+  
   # Lesson 1
   
   callModule(geyser1, "geyser1")
@@ -41,7 +43,7 @@ server<- function(input, output, session) {
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
     sidebarUserPanel(name = span(icon("user-astronaut"), username()),
-                     subtitle = span(icon("globe-americas"), input$mission),
+                     subtitle = span(icon("globe-americas"), location),
                      image = img_url())
   })
   
@@ -75,6 +77,7 @@ server<- function(input, output, session) {
   
   # Creating the hyperlinks and icons----
   github_username <<- "shuttleds" #type your github username in here
+  location <- "New York" #type your location in here
   
   instagram <- a(icon("instagram"), href="https://www.instagram.com/shuttleds/", target="_blank")
   twitter <- a(icon("twitter"), href="https://twitter.com/shuttledatasci/", target="_blank")
@@ -123,7 +126,8 @@ server<- function(input, output, session) {
     } 
     else if (input$mission %in% c("Apollo")) { 
       sidebarMenu(id = "tabs",
-                  menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T)
+                  menuItem("Home", tabName = "home_tabname", icon = icon("home")),
+                  menuItem("Welcome", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)
       )  
     }
     

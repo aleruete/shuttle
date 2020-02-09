@@ -79,6 +79,12 @@
   padding-right: 5px;
 }
 
+.welcome-tab{
+  max-width: 100%; 
+  overflow-x: hidden; 
+  padding-right: 5px;
+}
+
 .nav-tabs-custom{
   border-radius: 25px;
   margin-bottom: 0; /* The tabs box has a built in margin */
@@ -118,7 +124,7 @@
   padding: 20px 5px 20px 5px;
 }
 
-.space-for-rent-box{
+.white-box{
   background-color: #FFF;
   border-radius: 25px;
   padding: 20px 20px 20px 20px;

@@ -39,6 +39,7 @@ ui <- dashboardPage(title = "Shuttle",
                       loginUI("login"),
                       tabItems(
                         tabItem("home_tabname", homeUI("home")),
+                        tabItem("welcome_tabname", welcomeUI("welcome")),
                         #Lesson 1
                         tabItem("geyser1_tabname", geyser1UI("geyser1")),
                         tabItem("weather1_tabname", weather1UI("weather1")),

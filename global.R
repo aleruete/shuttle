@@ -12,6 +12,7 @@ library(rvest)
 source("login.R")
 source("base/home/home.R")
 source("base/home/googleRSS.R")
+source("base/welcome/welcome.R")
 # Lesson 1 Files
 source("base/lessons/lesson1/geyser1.R")
 source("base/lessons/lesson1/weather1.R")

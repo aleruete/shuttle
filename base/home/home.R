@@ -28,37 +28,32 @@ home <- function(input, output, session) {
 "),
           # tags$head(tags$style(HTML(".content { padding-left: 0;}"))), #removes extra padding from home page but messes up other modules
           column(8, div(style = "padding-left: 15px; padding-right: 15px;",
-                 fluidRow( div(style = "padding-bottom: 15px;",
-                   
-                   tabBox(
-                     id = session$ns("welcome_box"),
-                     width = 5,
-                     tabPanel(class = "home-tab",
-                              title = span(tagList(icon("rocket")), "Getting Started"),  value = "start",
-                              fluidRow(
-                                column(
-                                  12, htmlOutput(session$ns("start"))
-                                ))),
-                     tabPanel(class = "home-tab", style = "overflow-y:scroll;",
-                              title = "About", value = "about", icon = icon("feather-alt"),
-                              fluidRow(
-                                column(12, htmlOutput(session$ns("about")))
-                              )
-                     ),
-                     tabPanel(class = "home-tab",
-                              title = "SDS", value = "sds", icon = icon(c("frog","kiwi-bird","truck-monster") %>% sample(., 1)),
-                              fluidRow(
-                                column(
-                                  12, htmlOutput(session$ns("sds"))
-                                ))),
-                     tabPanel(class = "home-tab",
-                              title = "Links", value = "links", icon = icon("plus"),
-                              fluidRow(
-                                column(
-                                  12, htmlOutput(session$ns("links"))
-                                )))
-                     
-                   ),
+                 fluidRow(
+                   div(style = "padding-bottom: 15px;",
+                       tabBox(
+                         id = session$ns("welcome_box"),
+                         width = 5,
+                         tabPanel(class = "home-tab",
+                                  title = "Getting Started",  value = "start", icon = icon("rocket"),
+                                  fluidRow(
+                                    column(12, htmlOutput(session$ns("start")))
+                                  )),
+                         tabPanel(class = "home-tab", style = "overflow-y:scroll;",
+                                  title = "About", value = "about", icon = icon("feather-alt"),
+                                  fluidRow(
+                                    column(12, htmlOutput(session$ns("about")))
+                                  )),
+                         tabPanel(class = "home-tab",
+                                  title = "SDS", value = "sds", icon = icon(c("frog","kiwi-bird","truck-monster") %>% sample(., 1)),
+                                  fluidRow(
+                                    column(12, htmlOutput(session$ns("sds")))
+                                  )),
+                         tabPanel(class = "home-tab",
+                                  title = "Links", value = "links", icon = icon("plus"),
+                                  fluidRow(
+                                    column(12, htmlOutput(session$ns("links")))
+                                  ))
+                       ),
                    #Creates the scrollbar in the About tab          
                    tags$head(
                      tags$style(
@@ -171,11 +166,12 @@ home <- function(input, output, session) {
                           )
                           ),
                           div(style = "padding-top: 15px;",
-                            fluidRow(class = "space-for-rent-box",
+                            fluidRow(class = "white-box",
                                      div(textOutput(session$ns("spaceForRent")), class = "space-for-rent-header")))
                           
                                      
-                   ))),
+                   )
+                   )), #ends the div and fluidRow
 
                  div(style = "padding-left: 15px; padding-top: 15px;", #adds the 15px padding for the stock ticker row
                  fluidRow(class = "shuttle-box-4",
