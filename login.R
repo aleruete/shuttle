@@ -44,7 +44,7 @@ observeEvent(input$login_button, {
   
   Username <- input$user_name
   
-  if (Username != "shuttleds") {
+  if (Username != github_username) {
     output$login_error <- renderUI({
       p("Invalid username!", style = "color: red; font-weight: bold; padding-top: 5px;", class = "text-center")
     })
