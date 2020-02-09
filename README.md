@@ -1,8 +1,8 @@
 # :rocket: Shuttle
 A place for getting excited and curious about data science! 
 
-### YouTube :man_technologist:
-For all the videos that go along with the lessons, visit the YouTube Channel: [Shuttle Data Science](https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q)
+## YouTube Channel: [Shuttle Data Science](https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q)
+For all the videos that go along with the lessons, visit the YouTube Channel :man_technologist:
 
 ### How To Use
 * Fork your own version of the repository. Look for the word "Fork" above the Settings tab.
@@ -12,13 +12,11 @@ For all the videos that go along with the lessons, visit the YouTube Channel: [S
     * anything in the 'base' folder
     * ui.R, server.R, global.R, login.R
 
-### Version 0.1
-Still in alpha. All suggestions for improvements are welcome. :smile:
-
 #### 3.. 2.. 1..
 ![](https://thumbs.gfycat.com/FastSecondGalapagosmockingbird-size_restricted.gif)
 
 ---
 
-## Contact
-ShuttleDataScience@gmail.com  
+## Additional Info
+**Contact:** ShuttleDataScience@gmail.com  
+**Version 0.1:** Still in alpha. All suggestions for improvements are welcome. :thumbsup:
