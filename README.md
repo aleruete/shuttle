@@ -1,8 +1,8 @@
 # :rocket: Shuttle
 A place for getting excited and curious about data science! 
 
-### :man_technologist: YouTube
-For all the videos that go along with the lessons, visit the YouTube Channel: [Shuttle Data Science](https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q).
+### YouTube :man_technologist:
+For all the videos that go along with the lessons, visit the YouTube Channel: [Shuttle Data Science](https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q)
 
 ### How To Use
 * Fork your own version of the repository. Look for the word "Fork" above the Settings tab.
