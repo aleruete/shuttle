@@ -12,8 +12,7 @@ home <- function(input, output, session) {
   output$home_ui <- renderUI({
     
     tagList(
-      # h2("Welcome to Shuttle!"), MIGHT WANT TO PUT SOME HEADER HERE
-      
+
       div(
         
         fluidRow(
@@ -54,32 +53,7 @@ home <- function(input, output, session) {
                                     column(12, htmlOutput(session$ns("links")))
                                   ))
                        ),
-                   #Creates the scrollbar in the About tab          
-                   tags$head(
-                     tags$style(
-                       HTML('
-/* width */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 8px;
-  background: #f1f1f1;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  border-radius: 8px;
-  background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-    '))),
+                       
                    column(7,
                           fluidRow(class = "shuttle-box-1",
                                    tags$head(tags$style("
@@ -200,6 +174,8 @@ home <- function(input, output, session) {
     
   })
   
+  # Home Box ----
+  
   output$about <- renderUI({includeMarkdown(paste0("base/home/about.md"))})
   
   output$sds <- renderUI({includeMarkdown(paste0("base/home/sds.md"))})
@@ -208,6 +184,7 @@ home <- function(input, output, session) {
   
   output$links <- renderUI({includeMarkdown(paste0("base/home/links.md"))})
 
+  # Date and Time ----
   
   output$currentTime <- renderText({
     invalidateLater(1000, session)
@@ -230,7 +207,7 @@ home <- function(input, output, session) {
 
 
   
-  # Google News Feed
+  # Google News Feed ----
   
   gfeed1 <- reactiveValues(choice = "?hl=en-US&gl=US&ceid=US:en")
   
@@ -372,7 +349,7 @@ home <- function(input, output, session) {
     })
   })
   
-  
+  # S&P500 Ticker Search and Charts ----
   
 ticker_data <- reactive({
   
