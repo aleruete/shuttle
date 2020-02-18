@@ -39,6 +39,7 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("welcome_tabname", welcomeUI("welcome")),
                         #Lesson 1
                         tabItem("geyser1_tabname", geyser1UI("geyser1")),
+                        tabItem("ggplot1_tabname", ggplot1UI("ggplot1")),
                         tabItem("weather1_tabname", weather1UI("weather1")),
                         tabItem("datatable1_tabname", datatable1UI("datatable1")),
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),

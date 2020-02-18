@@ -20,6 +20,8 @@ server<- function(input, output, session) {
   
   callModule(geyser1, "geyser1")
   
+  callModule(ggplot1, "ggplot1")
+  
   callModule(weather1, "weather1")
   
   callModule(datatable1, "datatable1")
@@ -108,6 +110,7 @@ server<- function(input, output, session) {
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
                   menuItem("Lesson 1",
                            menuSubItem("Geyser 1", tabName = "geyser1_tabname", icon = icon("chart-bar")),
+                           menuSubItem("ggplot 1", tabName = "ggplot1_tabname", icon = icon("cubes")),
                            menuSubItem("Weather 1", tabName = "weather1_tabname", icon = icon("sun")),
                            menuSubItem("DataTable 1", tabName = "datatable1_tabname", icon = icon("table")),
                            menuSubItem("TimeSeries 1", tabName = "timeseries1_tabname", icon = icon("chart-line")),
