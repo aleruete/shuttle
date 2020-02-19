@@ -1,6 +1,6 @@
 
 ui <- dashboardPage(title = "Shuttle",
-                    header = dashboardHeader(title = span(tagList(actionLink("ichooseyou", "", icon = icon("space-shuttle"), style='color: #FE01B2; margin: 0; display: inline;'), "Shuttle", class = "shuttle-title"))
+                    header = dashboardHeader(title = tags$a(id="ichooseyou", href = "", class = "action-button shiny-bound-input", tags$img(src='logo.png', width='160', height='38'))
                                              # dropdownMenuOutput("messages"),
                                              # dropdownMenuOutput("notifications"),
                                              # dropdownMenuOutput("tasks")
