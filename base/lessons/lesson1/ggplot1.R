@@ -13,7 +13,7 @@ ggplot1 <- function(input, output, session) {
   output$ggplot1_ui <- renderUI({
     
     tagList(
-      h2("ggplot: Step 1"),
+      h2("ggplot2: Step 1"),
       
       div(
         fluidRow(
@@ -41,8 +41,9 @@ ggplot1 <- function(input, output, session) {
   output$dotPlot2 <- renderPlot({
     
     #ggplot script
-    ggplot(data = mpg) +
-      geom_point(mapping = aes(x = displ, y = cty))
+    ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+      geom_point(mapping = aes(color = class)) +
+      geom_smooth()
     
   })
   
