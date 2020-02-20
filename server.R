@@ -109,21 +109,21 @@ server<- function(input, output, session) {
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
                   menuItem("Lesson 1",
-                           menuSubItem("Geyser 1", tabName = "geyser1_tabname", icon = icon("chart-bar")),
-                           menuSubItem("ggplot 1", tabName = "ggplot1_tabname", icon = icon("cubes")),
-                           menuSubItem("Weather 1", tabName = "weather1_tabname", icon = icon("sun")),
-                           menuSubItem("DataTable 1", tabName = "datatable1_tabname", icon = icon("table")),
-                           menuSubItem("TimeSeries 1", tabName = "timeseries1_tabname", icon = icon("chart-line")),
-                           menuSubItem("WebScrape 1", tabName = "webscrape1_tabname", icon = icon("binoculars"))
+                           menuSubItem("Geyser", tabName = "geyser1_tabname", icon = icon("chart-bar")),
+                           menuSubItem("Weather", tabName = "weather1_tabname", icon = icon("sun")),
+                           menuSubItem("DataTable", tabName = "datatable1_tabname", icon = icon("table")),
+                           menuSubItem("TimeSeries", tabName = "timeseries1_tabname", icon = icon("chart-line")),
+                           menuSubItem("WebScrape", tabName = "webscrape1_tabname", icon = icon("binoculars")),
+                           menuSubItem("ggplot2", tabName = "ggplot1_tabname", icon = icon("cube"))
                            
                   ),
                   menuItem("Lesson 2",
-                           menuSubItem("Geyser 2", tabName = "geyser2_tabname", icon = icon("chart-bar")),
-                           menuSubItem("DataTable 2", tabName = "datatable2_tabname", icon = icon("table")),
-                           menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname", icon = icon("chart-line"))
+                           menuSubItem("Geyser", tabName = "geyser2_tabname", icon = icon("chart-bar")),
+                           menuSubItem("DataTable", tabName = "datatable2_tabname", icon = icon("table")),
+                           menuSubItem("TimeSeries", tabName = "timeseries2_tabname", icon = icon("chart-line"))
                   ),
                   menuItem("Lesson 3",
-                           menuSubItem("Weather 3", tabName = "weather3_tabname", icon = icon("sun"))
+                           menuSubItem("Weather", tabName = "weather3_tabname", icon = icon("sun"))
                   )
       )
     } 
