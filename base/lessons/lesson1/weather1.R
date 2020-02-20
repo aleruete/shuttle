@@ -19,7 +19,7 @@ weather1 <- function(input, output, session) {
         fluidRow(
           
           # Displays the weather app 
-          box(width = 12,
+          box(width = 6,
             htmlOutput(session$ns("weather"))
           )
         ))
@@ -38,8 +38,8 @@ weather1 <- function(input, output, session) {
     
     dark.base1 <- "https://forecast.io/embed/#"
     call.dark1 <- paste(dark.base1, "lat=", lat, "&lon=", long, "&name=", loc, sep="")
-    tags$iframe(src=call.dark1, height=230, width=615, frameborder = 0)
-    
+    tags$iframe(src=call.dark1, width= "100%", height= 230, frameborder= 0)
+    # height=230, width=615
   })
   
   
