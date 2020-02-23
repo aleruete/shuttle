@@ -45,7 +45,7 @@ server<- function(input, output, session) {
   # Rendering the Userpanel----
   output$userpanel <- renderUI({
     sidebarUserPanel(name = span(icon("user-astronaut"), username()),
-                     subtitle = span(icon("globe-americas"), location),
+                     subtitle = span(icon("globe-americas"), user_loc),
                      image = img_url())
   })
   
@@ -78,12 +78,9 @@ server<- function(input, output, session) {
   })
   
   # Creating the hyperlinks and icons----
-  github_username <<- "shuttleds" #type your github username in here
-  location <- "New York" #type your location in here
-  
   instagram <- a(icon("instagram"), href="https://www.instagram.com/shuttleds/", target="_blank")
   twitter <- a(icon("twitter"), href="https://twitter.com/shuttledatasci/", target="_blank")
-  github <- a(icon("github-square"), href=paste0("https://github.com/",github_username), target="_blank")
+  github <- a(icon("github-square"), href=paste0("https://github.com/",user_github), target="_blank")
   youtube <- a(icon("youtube"), href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q", target="_blank")
   stackoverflow <- a(icon("stack-overflow"), href="https://stackoverflow.com/questions/tagged/shiny", target="_blank")
   stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
@@ -108,7 +105,7 @@ server<- function(input, output, session) {
     if (input$mission %in% c("Gemini"))  { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
-                  menuItem("Lesson 1",
+                  menuItem("Project 1",
                            menuSubItem("Geyser", tabName = "geyser1_tabname", icon = icon("chart-bar")),
                            menuSubItem("Weather", tabName = "weather1_tabname", icon = icon("sun")),
                            menuSubItem("DataTable", tabName = "datatable1_tabname", icon = icon("table")),
@@ -117,12 +114,12 @@ server<- function(input, output, session) {
                            menuSubItem("ggplot2", tabName = "ggplot1_tabname", icon = icon("cube"))
                            
                   ),
-                  menuItem("Lesson 2",
+                  menuItem("Project 2",
                            menuSubItem("Geyser", tabName = "geyser2_tabname", icon = icon("chart-bar")),
                            menuSubItem("DataTable", tabName = "datatable2_tabname", icon = icon("table")),
                            menuSubItem("TimeSeries", tabName = "timeseries2_tabname", icon = icon("chart-line"))
                   ),
-                  menuItem("Lesson 3",
+                  menuItem("Project 3",
                            menuSubItem("Weather", tabName = "weather3_tabname", icon = icon("sun"))
                   )
       )

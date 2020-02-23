@@ -24,7 +24,7 @@ output$login_ui <- renderUI({
                    tags$p("Hold on to your butts")
                    ),
           
-          textInput(session$ns("user_name"), "User Name:", value = github_username),
+          textInput(session$ns("user_name"), "User Name:", value = user_github),
           
           div(
             style = "text-align: center;",
@@ -44,7 +44,7 @@ observeEvent(input$login_button, {
   
   Username <- input$user_name
   
-  if (Username != github_username) {
+  if (Username != user_github) {
     output$login_error <- renderUI({
       p("Invalid username!", style = "color: red; font-weight: bold; padding-top: 5px;", class = "text-center")
     })

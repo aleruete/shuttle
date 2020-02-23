@@ -31,3 +31,8 @@ source("base/lessons/lesson3/weather3.R")
 # Find your time zone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # The function OlsonNames() also has a list of time zones
 Sys.setenv(TZ="America/New_York")
+
+user_github <<- "shuttleds" #type your github username in here
+user_loc <- "New York" #type your location in here
+user_lat <- 40.678815 #insert latitude value here
+user_long <- -73.987942 #insert longitude value here

@@ -52,13 +52,29 @@
   text-align: center;
 }
 
+/*
 .space-for-rent-header{
   background-color: #b3b3cc;
   border-radius: 15px;
-  padding: 10px 0 10px 0;
+  padding: 10px 10px 10px 10px;
   font-weight: bold;
-  font-size: 22px;
-  text-align: center;
+  font-size: 14px;
+  text-align: left;
+}
+*/
+
+.stock-info-label{
+  font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.header-underline{
+  border-bottom: 1px solid;
+  width: 100%;
 }
 
 .myClass{
@@ -135,6 +151,38 @@
   border-radius: 25px;
   padding: 0 15px 0 15px;
 } 
+
+.home-selectize-input .selectize-input::after{
+  visibility:hidden;
+}
+
+.home-selectize-input .selectize-input::after{
+  visibility:hidden;
+}
+
+/*
+.home-selectize-input-nobox .selectize-input::after{
+  visibility:hidden;
+}
+*/
+
+.home-selectize-input-nobox .selectize-input{
+  border: 0;
+  padding: 0;
+  min-height: 10px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.home-selectize-input-nobox .selectize-control{
+  margin-bottom: 0;
+}
+
+.home-selectize-input-nobox .form-group{
+  margin-bottom: 0;
+}
+
+
 /*
 @keyframes icon {
   0% {color: red;}

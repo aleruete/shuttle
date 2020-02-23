@@ -19,6 +19,31 @@ welcome <- function(input, output, session) {
                fluidRow(
                  tabBox(
                    id = session$ns("welcome_box"),
+                   width = 5,
+                   tabPanel(class = "home-tab",
+                            title = "Getting Started",  value = "start", icon = icon("rocket"),
+                            fluidRow(
+                              column(12, htmlOutput(session$ns("start")))
+                            )),
+                   tabPanel(class = "home-tab", style = "overflow-y:scroll;",
+                            title = "About", value = "about", icon = icon("feather-alt"),
+                            fluidRow(
+                              column(12, htmlOutput(session$ns("about")))
+                            )),
+                   tabPanel(class = "home-tab",
+                            title = "SDS", value = "sds", icon = icon(c("frog","kiwi-bird","truck-monster") %>% sample(., 1)),
+                            fluidRow(
+                              column(12, htmlOutput(session$ns("sds")))
+                            )),
+                   tabPanel(class = "home-tab",
+                            title = "Links", value = "links", icon = icon("plus"),
+                            fluidRow(
+                              column(12, htmlOutput(session$ns("links")))
+                            ))
+                 ),
+                 
+                 tabBox(
+                   id = session$ns("welcome_box"),
                    width = 6,
                    tabPanel(class = "welcome-tab",
                             title = "Welcome",  value = "start", icon = icon("rocket"),
@@ -47,6 +72,15 @@ welcome <- function(input, output, session) {
   })
 
   #Server Section----
+  
+  output$about <- renderUI({includeMarkdown(paste0("base/home/about.md"))})
+  
+  output$sds <- renderUI({includeMarkdown(paste0("base/home/sds.md"))})
+  
+  output$start <- renderUI({includeMarkdown(paste0("base/home/start.md"))})
+  
+  output$links <- renderUI({includeMarkdown(paste0("base/home/links.md"))})
+  
   
   output$welcome <- renderUI({includeMarkdown(paste0("base/welcome/welcome.md"))})
   
