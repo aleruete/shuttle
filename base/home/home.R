@@ -360,7 +360,7 @@ home <- function(input, output, session) {
   
   observeEvent(input$control_gnews2, {
 
-    if(input$control_gnews1 == "sports"){
+    if(input$control_gnews2 == "sports"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp1ZEdvU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp1ZEdvU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Sports</a>')
     }
