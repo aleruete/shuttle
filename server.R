@@ -102,29 +102,33 @@ server<- function(input, output, session) {
   output$sidebar <- renderMenu({
     req(user_info()$user_login)
     
-    if (input$mission %in% c("Gemini"))  { 
+    if (input$mission %in% c("Learning"))  { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
-                  menuItem("Project 1",
-                           menuSubItem("Geyser", tabName = "geyser1_tabname", icon = icon("chart-bar")),
-                           menuSubItem("Weather", tabName = "weather1_tabname", icon = icon("sun")),
-                           menuSubItem("DataTable", tabName = "datatable1_tabname", icon = icon("table")),
-                           menuSubItem("TimeSeries", tabName = "timeseries1_tabname", icon = icon("chart-line")),
-                           menuSubItem("WebScrape", tabName = "webscrape1_tabname", icon = icon("binoculars")),
-                           menuSubItem("ggplot2", tabName = "ggplot1_tabname", icon = icon("cube"))
-                           
+                  menuItem("Plots & Charts", icon = icon("chart-bar"),
+                           menuSubItem("Geyser 1", tabName = "geyser1_tabname"),
+                           menuSubItem("Geyser 2", tabName = "geyser2_tabname"),
+                           menuSubItem("ggplot2 1", tabName = "ggplot1_tabname")
                   ),
-                  menuItem("Project 2",
-                           menuSubItem("Geyser", tabName = "geyser2_tabname", icon = icon("chart-bar")),
-                           menuSubItem("DataTable", tabName = "datatable2_tabname", icon = icon("table")),
-                           menuSubItem("TimeSeries", tabName = "timeseries2_tabname", icon = icon("chart-line"))
+                  menuItem("DataTable", icon = icon("table"),
+                           menuSubItem("DataTable 1", tabName = "datatable1_tabname"),
+                           menuSubItem("DataTable 2", tabName = "datatable2_tabname")
                   ),
-                  menuItem("Project 3",
-                           menuSubItem("Weather", tabName = "weather3_tabname", icon = icon("sun"))
+                  menuItem("TimeSeries", icon = icon("chart-line"),
+                           menuSubItem("TimeSeries 1", tabName = "timeseries1_tabname"),
+                           menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname")
+                  ),
+                  menuItem("Weather", icon = icon("sun"),
+                           menuSubItem("Weather 1", tabName = "weather1_tabname"),
+                           menuSubItem("Weather 3", tabName = "weather3_tabname")
+                  ),
+                  menuItem("WebScrape", icon = icon("binoculars"),
+                           menuSubItem("WebScrape 1", tabName = "webscrape1_tabname")
                   )
+                  
       )
     } 
-    else if (input$mission %in% c("Apollo")) { 
+    else if (input$mission %in% c("Building")) { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home")),
                   menuItem("Welcome", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)

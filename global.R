@@ -13,19 +13,21 @@ source("login.R")
 source("base/home/home.R")
 source("base/home/googleRSS.R")
 source("base/welcome/welcome.R")
-# Lesson 1 Files
-source("base/lessons/lesson1/geyser1.R")
-source("base/lessons/lesson1/ggplot1.R")
-source("base/lessons/lesson1/weather1.R")
-source("base/lessons/lesson1/datatable1.R")
-source("base/lessons/lesson1/timeseries1.R")
-source("base/lessons/lesson1/webscrape1.R")
-# Lesson 2 Files
-source("base/lessons/lesson2/geyser2.R")
-source("base/lessons/lesson2/datatable2.R")
-source("base/lessons/lesson2/timeseries2.R")
-# Lesson 3 Files
-source("base/lessons/lesson3/weather3.R")
+# Plots and Charts
+source("base/projects/plots_charts/geyser1.R")
+source("base/projects/plots_charts/ggplot1.R")
+source("base/projects/plots_charts/geyser2.R")
+# DataTable
+source("base/projects/datatable/datatable1.R")
+source("base/projects/datatable/datatable2.R")
+# TimeSeries
+source("base/projects/timeseries/timeseries1.R")
+source("base/projects/timeseries/timeseries2.R")
+# Weather
+source("base/projects/weather/weather1.R")
+source("base/projects/weather/weather3.R")
+# Webscrape
+source("base/projects/webscrape/webscrape1.R")
 
 # Sets the time zone
 # Find your time zone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
