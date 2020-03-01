@@ -20,10 +20,9 @@ ui <- dashboardPage(title = "Shuttle",
                       
                       # Settings for the Mission Selection ----
                       div(style = "margin-top: 10px;",
-                          
-                          collapsed = TRUE, sidebarMenuOutput("sidebar"),
-                          selectInput("mission", "Mission:",
-                                      c("Gemini","Apollo"))
+                          radioButtons("mission", label = NULL,
+                                       c("Gemini","Apollo"), inline = TRUE),
+                          collapsed = TRUE, sidebarMenuOutput("sidebar")
                           # uiOutput( "browser")
                       )
                     ),

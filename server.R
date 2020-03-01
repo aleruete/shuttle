@@ -102,7 +102,7 @@ server<- function(input, output, session) {
   output$sidebar <- renderMenu({
     req(user_info()$user_login)
     
-    if (input$mission %in% c("Learning"))  { 
+    if (input$mission %in% c("Gemini"))  { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
                   menuItem("Plots & Charts", icon = icon("chart-bar"),
@@ -125,10 +125,9 @@ server<- function(input, output, session) {
                   menuItem("WebScrape", icon = icon("binoculars"),
                            menuSubItem("WebScrape 1", tabName = "webscrape1_tabname")
                   )
-                  
       )
     } 
-    else if (input$mission %in% c("Building")) { 
+    else if (input$mission %in% c("Apollo")) { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home")),
                   menuItem("Welcome", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)
