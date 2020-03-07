@@ -13,19 +13,17 @@ webscrape1 <- function(input, output, session) {
   output$webscrape1_ui <- renderUI({
     
     tagList(
-      h2("Web Scrape: Step 1"),
+      h2("WebScrape: Step 1"),
       
       div(
         fluidRow(
           
           box(width = 10, title = "Topics Scraped from CNN World Markets/Asia",
               DT::dataTableOutput(session$ns("webscrape_table"))
-              
           )
         )
       )
     )
-    
   })
   
   #Server Section----
@@ -41,7 +39,6 @@ webscrape1 <- function(input, output, session) {
       html_text() %>%
       trimws() %>%
       tibble()
-
   })
   
   # Rendering the scraped data into a datatable
@@ -49,7 +46,6 @@ webscrape1 <- function(input, output, session) {
     req(webscrape_data())
     
     webscrape_data()
-    
   })
   
 }
