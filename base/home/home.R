@@ -244,7 +244,7 @@ home <- function(input, output, session) {
   })
   
   output$so_header <- renderText({
-    validate(
+    shiny::validate(
       need(url_tag() != "", "Select a Tag")
     )
     
