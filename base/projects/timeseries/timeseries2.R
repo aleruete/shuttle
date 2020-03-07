@@ -20,7 +20,6 @@ timeseries2 <- function(input, output, session) {
       div(
         fluidRow(
           box(width = 2,
-              
               textInput(session$ns("symbol"), "Stock Symbol", value = "AMZN"),
               dateInput(session$ns("start_date"), "Start Date", value = "2015-01-01"),
               dateInput(session$ns("end_date"), "End Date", value = Sys.Date()),
@@ -31,7 +30,6 @@ timeseries2 <- function(input, output, session) {
               dygraphOutput(session$ns("timeseries_graph")),
               hr(),
               plotOutput(session$ns("timeseries_chart"))
-              
           )
         )
       )
@@ -45,12 +43,12 @@ timeseries2 <- function(input, output, session) {
     
     tidyquant::tq_get(input$symbol, get = "stock.prices", from = input$start_date, to = input$end_date)
     
-  })
+  }, ignoreNULL = FALSE)
   
   # So the stock name reacts to the update button
   stockname <- eventReactive(input$update, {
     input$symbol
-  })
+  }, ignoreNULL = FALSE)
   
   # Creating the candlestick graph using the dygraphs package
   # Great place to learn more about dygraphs https://rstudio.github.io/dygraphs/
@@ -65,14 +63,13 @@ timeseries2 <- function(input, output, session) {
       dyAxis("y", label = "Stock Price") %>%
       dyCandlestick() %>% # can add compress = TRUE here if you want quarterly/monthly candles
       dyRangeSelector()
-    
   })
   
   # Creating the candlestick chart using the chartSeries package
   # A good first place to start for charSeries https://www.quantmod.com/examples/charting/
   output$timeseries_chart <- renderPlot({
     req(stockdata)
-
+    
     stockdata() %>%
       select("date","open","high","low","close","volume") %>%
       column_to_rownames(., var = "date") %>%
@@ -87,10 +84,7 @@ timeseries2 <- function(input, output, session) {
                                      ,up.border='#0449CB',up.col='#0449CB'
                                      ,dn.border='#C12626',dn.col='#C12626'
                                      ,area="#FFFFFF")
-
       )
-
   })
-  
   
 }
