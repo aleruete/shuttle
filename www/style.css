@@ -1,67 +1,50 @@
 
-@import url(https://fonts.googleapis.com/css?family=Ubuntu:300);
-
+/* Header Settings */
 .skin-blue .main-header .logo {
-  font-family: Brush Script MT, Brush Script Std, cursive;
-  font-weight: bold;
-  font-size: 30px;
-  letter-spacing: 0.05em;
-  /*color: #FE01B2;*/
   background-color: #222d32;
   text-align: left;
-  margin-left: 24px;
-  margin-right: -24px;
+  padding-left: 20px;
 }
 
-/* Move alerts to the left-hand side */
-.skin-blue .main-header .navbar-custom-menu{
-  float: left;
-  margin-left: 10px;
+.skin-blue .main-header .logo:hover {
+  background-color: #222d32;
 }
 
-.text-center{
-  font-weight: bold;
+.skin-blue .main-header .navbar {
+  background-color: #222d32;
 }
 
+.skin-blue .main-header .navbar .sidebar-toggle:hover {
+  background-color: #385898;
+}
+
+
+/* Sidebar Settings */
 .userpanel{
-  margin-left: 15px;
+  text-align: left;
+  margin: auto;
+  width: 90%;
 }
 
 .links{
   font-size: 20px;
-  text-align: center;
-  margin-left: -50px;
+  text-align: left;
+  margin: auto;
+  width: 90%;
 }
 
+
+/* Home Page Settings */
 .date{
-    /*font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;*/
     text-align: center;
-    background-color: #b3b3cc;
+    background-color: #f2f3f5;
     border-radius: 15px;
+    border: 1px solid #ccd0d5;
     padding: 10px 0 10px 10px;
+    color: #1c1e21;
     font-size: 18px;
     font-weight: bold;
 }
-
-.header-box-1{
-  background-color: #b3b3cc;
-  border-radius: 15px;
-  padding: 10px 0 10px 0;
-  font-weight: bold;
-  font-size: 22px;
-  text-align: center;
-}
-
-/*
-.space-for-rent-header{
-  background-color: #b3b3cc;
-  border-radius: 15px;
-  padding: 10px 10px 10px 10px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: left;
-}
-*/
 
 .stock-info-label{
   font-family: 'Source Sans Pro','Helvetica Neue',Helvetica,Arial,sans-serif;
@@ -77,81 +60,15 @@
   width: 100%;
 }
 
-.myClass{
-  font-size: 15px;
-  line-height: 30px;
-  float: right;
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-  padding: 0 15px;
-  margin-top: 8px;
-  overflow: hidden;
-  color: #f2f2f2;
-}
-
-.home-tab{
-  height: 365px; 
-  max-width: 100%; 
-  overflow-x: hidden; 
-  padding-right: 5px;
-}
-
-.welcome-tab{
-  max-width: 100%; 
-  overflow-x: hidden; 
-  padding-right: 5px;
-}
-
-.nav-tabs-custom{
-  border-radius: 25px;
-  margin-bottom: 0; /* The tabs box has a built in margin */
-}
-
-/*
-.nav-tabs-custom .nav .nav-tabs .shiny-tab-input .shiny-bound-input{
-  border-radius: 25px;
-}
-
-.tab-content{
-  border-bottom-right-radius: 25px;
-  border-bottom-left-radius: 25px;
-}
-*/
-
 .shuttle-box-1{
   background-color: #FFF;
   border-radius: 25px;
-  padding: 20px 20px 0 20px;
-}
-
-.shuttle-box-2{
-  background-color: #FFF;
-  border-radius: 25px;
   padding: 15px 20px 0 20px;
+  border: 1px solid #dddfe2;
 }
 
-.shuttle-box-3{
-  background-color: #FFF;
-  border-radius: 25px;
-}
 
-.shuttle-box-4{
-  background-color: #FFF;
-  border-radius: 25px;
-  padding: 20px 5px 20px 5px;
-}
-
-.white-box{
-  background-color: #FFF;
-  border-radius: 25px;
-  padding: 20px 20px 20px 20px;
-}
-
-.google-news{
-  background-color: #FFF;
-  border-radius: 25px;
-  padding: 0 15px 0 15px;
-} 
-
+/* Custom Selectize Input Settings for Home Page */
 .home-selectize-input .selectize-input::after{
   visibility:hidden;
 }
@@ -159,12 +76,6 @@
 .home-selectize-input .selectize-input::after{
   visibility:hidden;
 }
-
-/*
-.home-selectize-input-nobox .selectize-input::after{
-  visibility:hidden;
-}
-*/
 
 .home-selectize-input-nobox .selectize-input{
   border: 0;
@@ -183,35 +94,33 @@
 }
 
 
-/*
-@keyframes icon {
-  0% {color: red;}
-  25% {color: orange;}
-  50% {color: yellow;}
-  75% {color: orange;}
-  100%  {color: red;}
+/* Welcome Page Settings */
+.home-tab{
+  height: 365px; 
+  max-width: 100%; 
+  overflow-x: hidden; 
+  padding-right: 5px;
 }
 
-.icon_animation {
-  animation: icon 20s linear infinite;
-  color: #FE01B2;
-}
-*/
-
-.skin-blue .main-header .logo:hover {
-  background-color: #222d32;
+.welcome-tab{
+  max-width: 100%; 
+  overflow-x: hidden; 
+  padding-right: 5px;
 }
 
-.skin-blue .main-header .navbar {
-  background-color: #222d32;
+.nav-tabs-custom{
+  border-radius: 25px;
+  margin-bottom: 0; /* tabBox has a built in margin */
 }
 
+
+/* Project App Settings */
 .dygraph-legend {
   left: 70px !important;
   background-color: transparent !important;
 }
 
-/*Scrollbar Adjustments*/
+/*Custom Scrollbar Settings*/
 /* width */
 ::-webkit-scrollbar {
   width: 8px;

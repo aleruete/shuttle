@@ -1,36 +1,28 @@
 
 ui <- dashboardPage(title = "Shuttle",
                     header = dashboardHeader(title = tags$a(id="ichooseyou", href = "", class = "action-button shiny-bound-input", tags$img(src='logo.png', width='160', height='38'))
-                                             # dropdownMenuOutput("messages"),
-                                             # dropdownMenuOutput("notifications"),
-                                             # dropdownMenuOutput("tasks")
                     ),
                     
                     dashboardSidebar(
+                      tags$head(
+                        tags$link(rel = "stylesheet", type = "text/css",
+                                  href = "style.css")),
                       # Settings for the User Panel ----
-                      div(style = "border-bottom: 4px double #f2f2f2; border-top: 1px solid #f2f2f2;",
-                          div(
-                            tags$head( #having this here loads the style.css sheet as soon as the app is launched
-                              tags$link(rel = "stylesheet", type = "text/css",
-                                        href = "style.css")),
-                            uiOutput("userpanel"), class = "userpanel"),
-                          div(
-                            uiOutput("links"), class = "links")
+                      div(style = 'border-bottom: 4px double #f2f2f2; border-top: 1px solid #f2f2f2;',
+                          div(class = 'userpanel', uiOutput("userpanel")),
+                          div(class = 'links', uiOutput("links"))
                       ),
                       
                       # Settings for the Mission Selection ----
-                      div(style = "margin-top: 10px;",
-                          radioButtons("mission", label = NULL,
-                                       c("Gemini","Apollo"), inline = TRUE),
-                          collapsed = TRUE, sidebarMenuOutput("sidebar")
-                          # uiOutput( "browser")
-                      )
+                      div(style = 'padding-top: 5px; padding-left: 8px;',
+                          uiOutput("mission_radio")),
+                      collapsed = TRUE, sidebarMenuOutput("sidebar")
                     ),
                     
                     # Settings for the sidebar display ----
                     dashboardBody(
                       shinyjs::useShinyjs(),
-                      tags$head(tags$style(".table{margin: 0 auto;}")),
+                      tags$head(tags$style('.table{margin: 0 auto;}')),
                       skin = "black",
                       loginUI("login"),
                       tabItems(
@@ -52,44 +44,20 @@ ui <- dashboardPage(title = "Shuttle",
                       ),
                       
                       # HTML affecting the entire app ----
-                      
-                      # Sets the style for the text in the top right
                       tags$head(
-                        tags$style(
-                          HTML('
-                              .myClass{
-                                font-size: 15px;
-                                line-height: 30px;
-                                float: right;
-                                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-                                padding: 0 15px;
-                                margin-top: 8px;
-                                overflow: hidden;
-                                color: #f2f2f2;
-                              }
-    '))),
-                      #              # Creates the scrolling text in the top right corner
-                      #              tags$script(
-                      #                HTML('
-                      # $(document).ready(function() {
-                      #  $("header").find("nav").append(\'<span class="myClass"><marquee behavior="scroll" direction="left">Your scrolling text goes here. This is a really long message to test the length of the scrolling.</marquee></span>\');
-                      # })
-                      # ')),
-                      # Keeps the app alive when a process is taking a long time
-                      tags$head(
-                        HTML("
+                        HTML('
                             <script>
 var socket_time_interval
 var n = 0
-$(document).on('shiny:connected', function(event) {
+$(document).on("shiny:connected", function(event) {
 socket_timeout_interval = setInterval(function() {
-Shiny.onInputChange('count', n++)
+Shiny.onInputChange("count", n++)
 }, 1500)
 });
-$(document).on('shiny:disconnected', function(event) {
+$(document).on("shiny:disconnected", function(event) {
 clearInterval(socket_timeout_interval)
 });
 </script>
-                        "))
+                        '))
                     )
 )

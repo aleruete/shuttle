@@ -10,7 +10,7 @@ server<- function(input, output, session) {
   })
   
   # Calling all the modules that are being used----
-  user_info <- callModule(login, "login")
+  login_info <- callModule(login, "login")
   
   callModule(home, "home")
   
@@ -42,35 +42,22 @@ server<- function(input, output, session) {
   
   callModule(weather3, "weather3")
   
-  # Rendering the Userpanel----
-  output$userpanel <- renderUI({
-    sidebarUserPanel(name = span(icon("user-astronaut"), username()),
-                     subtitle = span(icon("globe-americas"), user_loc),
-                     image = img_url())
-  })
+  # UserPanel Information----
+  user <- reactiveValues(name = NULL,
+                         loc = NULL,
+                         img = NULL)
   
-  # Creating the username----
-  username <- reactive({
-    if(user_info()$user_login) {
-      if (input$ichooseyou == 0) {
-        user_info()$user
+  observe({
+    if(login_info()$access) {
+      if (input$ichooseyou %% 2 == 0) {
+        user$name = login_info()$name
+        user$loc = user_loc
+        user$img = "https://avatars2.githubusercontent.com/u/54476948?s=460&v=4"
       }
       else {
-        "Charizard"
-      }
-    } else {
-      return(NULL)
-    }
-  })
-  
-  # Creating the user image----
-  img_url <- reactive({
-    if(user_info()$user_login) {
-      if (input$ichooseyou == 0) {
-        paste0("https://avatars2.githubusercontent.com/u/54476948?s=460&v=4")
-      }
-      else {
-        paste0("https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png") #RAWR
+        user$name = "Charizard" #RAWR
+        user$loc = "Kanto"
+        user$img = "https://vignette.wikia.nocookie.net/iso33private/images/9/95/Charizard.png"
       }
     } else {
       return(NULL)
@@ -85,27 +72,42 @@ server<- function(input, output, session) {
   stackoverflow <- a(icon("stack-overflow"), href="https://stackoverflow.com/questions/tagged/shiny", target="_blank")
   stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
   
-  output$links <- renderUI({
-    span(tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange))
-  })
-  
-  # Collapses the Sidebar before the user logs in----
+  # Collapses the Sidebar before the user logs in ----
   observe({
-    if(user_info()$user_login) {
+    if(login_info()$access) {
       shinyjs::removeClass(selector = "body", class = "sidebar-collapse")
-    } else if (!isTruthy(user_info()$user_login)) {
+      
+      #Render the UserPanel
+      output$userpanel <- renderUI({
+        sidebarUserPanel(name = span(icon("user-astronaut"), user$name),
+                         subtitle = span(icon("globe-americas"), user$loc),
+                         image = user$img)
+      })
+      
+      #Render the Links
+      output$links <- renderUI({
+        div(style = 'margin: auto; width: 90%; letter-spacing: 1px;',
+            span(tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange)))
+      })
+      
+      #Render Mission Radio Buttons
+      output$mission_radio <- renderUI({
+        radioButtons("mission", label = NULL, c("Gemini","Apollo"), selected = "Gemini", inline = TRUE)
+      })
+      
+    } else if (!isTruthy(login_info()$access)) {
       shinyjs::addClass(selector = "body", class = "sidebar-collapse")
     }
   })
   
   # Rendering the Sidebar----
   output$sidebar <- renderMenu({
-    req(user_info()$user_login)
+    req(login_info()$access & input$mission > 0)
     
     if (input$mission %in% c("Gemini"))  { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
-                  menuItem("Plots & Charts", icon = icon("chart-bar"),
+                  menuItem("Plots", icon = icon("chart-bar"),
                            menuSubItem("Geyser 1", tabName = "geyser1_tabname"),
                            menuSubItem("Geyser 2", tabName = "geyser2_tabname"),
                            menuSubItem("ggplot2 1", tabName = "ggplot1_tabname")
@@ -130,80 +132,9 @@ server<- function(input, output, session) {
     else if (input$mission %in% c("Apollo")) { 
       sidebarMenu(id = "tabs",
                   menuItem("Home", tabName = "home_tabname", icon = icon("home")),
-                  menuItem("Welcome", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)
+                  menuItem("Welcome to Apollo", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)
       )  
     }
     
   })
-  
-  # Rendering the Browser Button----
-  output$browser <- renderUI({
-    actionButton("browser", "Browser", icon = icon("code"))
-  })
-  
-  observeEvent(input$browser,{
-    browser()
-  })
-  
-  # # Rendering the Dropdown Menus in the top bar----
-  # output$messages <- renderMenu({
-  #   
-  #   dropdownMenu(type = "messages",
-  #                messageItem(
-  #                  from = "Sales Dept",
-  #                  message = "Sales are good"
-  #                ),
-  #                messageItem(
-  #                  from = "New User",
-  #                  message = "How do I register?",
-  #                  icon = icon("question"),
-  #                  time = "3:20"
-  #                ),
-  #                messageItem(
-  #                  from = "Support",
-  #                  message = "New server is ready",
-  #                  icon = icon("life-ring"),
-  #                  time = "2019-06-29"
-  #                )
-  #   )
-  #   
-  # })
-  # 
-  # output$notifications <- renderMenu({
-  #   
-  #   dropdownMenu(type = "notifications", badgeStatus = "warning",
-  #                notificationItem(
-  #                  text = "10 new users",
-  #                  icon("users")
-  #                ),
-  #                notificationItem(
-  #                  text = "20 items delivered",
-  #                  icon("truck"),
-  #                  status = "success"
-  #                ),
-  #                notificationItem(
-  #                  text = "Server load at 70%",
-  #                  icon = icon("exclamation-triangle"),
-  #                  status = "warning"
-  #                )
-  #   )
-  #   
-  # })
-  # 
-  # output$tasks <- renderMenu({
-  #   
-  #   dropdownMenu(type = "tasks", badgeStatus = "success",
-  #                taskItem(value = 90, color = "green",
-  #                         "Documentation"
-  #                ),
-  #                taskItem(value = 17, color = "aqua",
-  #                         "Project Everest"
-  #                ),
-  #                taskItem(value = 75, color = "yellow",
-  #                         "Server Deployment"
-  #                )
-  #   )
-  #   
-  # })
-  
 }
