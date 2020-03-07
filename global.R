@@ -13,21 +13,21 @@ source("login.R")
 source("base/home/home.R")
 source("base/home/googleRSS.R")
 source("base/welcome/welcome.R")
-# Plots and Charts
-source("base/projects/plots_charts/geyser1.R")
-source("base/projects/plots_charts/ggplot1.R")
-source("base/projects/plots_charts/geyser2.R")
+# Plots
+source("base/gemini/plots/geyser1.R")
+source("base/gemini/plots/ggplot1.R")
+source("base/gemini/plots/geyser2.R")
 # DataTable
-source("base/projects/datatable/datatable1.R")
-source("base/projects/datatable/datatable2.R")
+source("base/gemini/datatable/datatable1.R")
+source("base/gemini/datatable/datatable2.R")
 # TimeSeries
-source("base/projects/timeseries/timeseries1.R")
-source("base/projects/timeseries/timeseries2.R")
+source("base/gemini/timeseries/timeseries1.R")
+source("base/gemini/timeseries/timeseries2.R")
 # Weather
-source("base/projects/weather/weather1.R")
-source("base/projects/weather/weather3.R")
+source("base/gemini/weather/weather1.R")
+source("base/gemini/weather/weather3.R")
 # Webscrape
-source("base/projects/webscrape/webscrape1.R")
+source("base/gemini/webscrape/webscrape1.R")
 
 # Sets the time zone
 # Find your time zone here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
