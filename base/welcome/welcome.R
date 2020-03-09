@@ -15,6 +15,10 @@ welcome <- function(input, output, session) {
     tagList(
       
       div(
+        tags$style('
+.nav-tabs-custom .nav-tabs li.active:hover a, .nav-tabs-custom .nav-tabs li.active a {color: #385898;}
+.nav-tabs-custom .nav-tabs li.active {border-top-color: #555;}
+'),
         column(12,
                fluidRow(
                  tabBox(
