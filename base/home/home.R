@@ -14,15 +14,11 @@ home <- function(input, output, session) {
       
       div(
         fluidRow(
-          tags$style('
-.nav-tabs-custom .nav-tabs li.active:hover a, .nav-tabs-custom .nav-tabs li.active a {color: #FE01B2;}
-.nav-tabs-custom .nav-tabs li.active {border-top-color: #555;}
-'),
           column(8, div(style = 'padding-left: 15px; padding-right: 15px;',
                         fluidRow(
                           column(9, 
                                  fluidRow(
-                                   column(12,
+                                   column(12, style = 'padding-bottom: 5px;',
                                           class = 'shuttle-box-1',
                                           htmlOutput(session$ns("weather")))),
                                  div(style = 'padding-top: 15px;',
