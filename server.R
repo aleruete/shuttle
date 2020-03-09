@@ -9,14 +9,14 @@ server<- function(input, output, session) {
     cat(".")
   })
   
-  # Calling all the modules that are being used----
+  # Home Base ----
   login_info <- callModule(login, "login")
   
   callModule(home, "home")
   
   callModule(welcome, "welcome")
   
-  # Lesson 1
+  # Gemini Modules ----
   
   callModule(geyser1, "geyser1")
   
@@ -29,8 +29,6 @@ server<- function(input, output, session) {
   callModule(timeseries1, "timeseries1")
   
   callModule(webscrape1, "webscrape1")
-
-  # Lesson 2
   
   callModule(geyser2, "geyser2")
   
@@ -38,9 +36,10 @@ server<- function(input, output, session) {
   
   callModule(timeseries2, "timeseries2")
   
-  # Lesson 3
-  
   callModule(weather3, "weather3")
+  
+  # Apollo Modules ----
+  # Call your modules here.
   
   # UserPanel Information----
   user <- reactiveValues(name = NULL,
@@ -52,7 +51,7 @@ server<- function(input, output, session) {
       if (input$ichooseyou %% 2 == 0) {
         user$name = login_info()$name
         user$loc = user_loc
-        user$img = "https://avatars2.githubusercontent.com/u/54476948?s=460&v=4"
+        user$img = paste0("https://github.com/",login_info()$name,".png")
       }
       else {
         user$name = "Charizard" #RAWR
@@ -64,14 +63,6 @@ server<- function(input, output, session) {
     }
   })
   
-  # Creating the hyperlinks and icons----
-  instagram <- a(icon("instagram"), href="https://www.instagram.com/shuttleds/", target="_blank")
-  twitter <- a(icon("twitter"), href="https://twitter.com/shuttledatasci/", target="_blank")
-  github <- a(icon("github-square"), href=paste0("https://github.com/",user_github), target="_blank")
-  youtube <- a(icon("youtube"), href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q", target="_blank")
-  stackoverflow <- a(icon("stack-overflow"), href="https://stackoverflow.com/questions/tagged/shiny", target="_blank")
-  stackexchange <- a(icon("stack-exchange"), href="https://stackoverflow.com/questions/tagged/quantmod", target="_blank")
-  
   # Collapses the Sidebar before the user logs in ----
   observe({
     if(login_info()$access) {
@@ -82,12 +73,6 @@ server<- function(input, output, session) {
         sidebarUserPanel(name = span(icon("user-astronaut"), user$name),
                          subtitle = span(icon("globe-americas"), user$loc),
                          image = user$img)
-      })
-      
-      #Render the Links
-      output$links <- renderUI({
-        div(style = 'margin: auto; width: 90%; letter-spacing: 1px;',
-            span(tagList(youtube,instagram,twitter,github,stackoverflow,stackexchange)))
       })
       
       #Render Mission Radio Buttons
@@ -128,11 +113,15 @@ server<- function(input, output, session) {
                            menuSubItem("WebScrape 1", tabName = "webscrape1_tabname")
                   )
       )
-    } 
-    else if (input$mission %in% c("Apollo")) { 
+    }
+    # Apollo
+    else if (input$mission %in% c("Apollo")) {
       sidebarMenu(id = "tabs",
+                  menuItem("Welcome to Apollo", tabName = "welcome_tabname", selected = T),
                   menuItem("Home", tabName = "home_tabname", icon = icon("home")),
-                  menuItem("Welcome to Apollo", tabName = "welcome_tabname", icon = icon("rocket"), selected = T)
+                  # Place your menu items here.
+                  menuItem("Your Tab", tabName = " ", icon = icon("user-astronaut"))
+                  
       )  
     }
     
