@@ -25,12 +25,57 @@
   margin: auto;
   width: 90%;
 }
-
+/*
 .links{
   font-size: 20px;
   text-align: left;
   margin: auto;
   width: 90%;
+}*/
+
+.links {
+  font-size: 20px;
+  float: left;
+  padding: 0 20px;
+  margin-top: 11px;
+  letter-spacing: 10px;
+}
+
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
+  border-left-color: #FE01B2;
+}
+
+.skin-blue .main-sidebar .sidebar .sidebar-menu .active a:hover{
+  border-left-color: #FE01B2;
+}
+
+.skin-blue .main-sidebar .sidebar .sidebar-menu a:hover{
+  border-left-color: #385898;
+}
+
+.skin-blue .treeview-menu>li.active>a>.fa {
+  color: #FE01B2;
+}
+
+.skin-blue .treeview-menu>li.active>a:hover>.fa {
+  color: #FE01B2;
+}
+
+/* Login Screen */
+.github-img {
+  border-radius: 50%;
+  border: 1px solid #ccd0d5;
+  width: 175px;
+  height: 175px;
+}
+
+.question-mark {
+  font-size: 16px;
+  line-height: unset;
+}
+
+.tooltip.right {
+  width: 150px;
 }
 
 
