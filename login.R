@@ -29,7 +29,6 @@ login <- function(input, output, session) {
             hr(),
             
             div(style = 'padding-top: 0;',
-                h3("Login", style = 'color:#1c1e21; font-weight: bold; text-align: center;'),
                 fluidRow(
                   column(9, style = 'padding-right: 0;',
                          shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, value = user_github, placeholder = "Enter a Username", addon = icon("user-astronaut"))),
@@ -101,12 +100,38 @@ login <- function(input, output, session) {
   
   
   zip_data <- eventReactive(input$user_zip, {
-    input$user_zip %>%
-      paste0('http://www.geonames.org/postalcode-search.html?q=',.,'&country=') %>%
-      read_html() %>%
-      html_nodes(.,'tr:nth-child(2) td:nth-child(2) , tr:nth-child(3) small') %>%
-      html_text() %>%
-      trimws()
+    
+      input$user_zip %>%
+        paste0('http://www.geonames.org/postalcode-search.html?q=',.,'&country=US') %>%
+        read_html() %>%
+        html_nodes(.,'tr:nth-child(2) td:nth-child(2) , tr:nth-child(3) small') %>%
+        html_text() %>%
+        trimws()
+  })
+  
+  no_zip_data <- eventReactive(input$user_zip, {
+    
+    read_html('https://phaster.com/zip_code.html') %>%
+        html_nodes(.,'tr+ tr td~ td+ td font') %>%
+        html_text() %>%
+        gsub("thru.*","",.) %>%
+        gsub("-.*","",.) %>%
+        trimws() %>%
+        sample(.,1) %>%
+        paste0('http://www.geonames.org/postalcode-search.html?q=',.,'&country=US') %>%
+        read_html() %>%
+        html_nodes(.,'tr:nth-child(2) td:nth-child(2) , tr:nth-child(3) small') %>%
+        html_text() %>%
+        trimws()
+  })
+  
+  login_zip_data <- eventReactive(input$user_zip, {
+    
+    if(input$user_zip == ""){
+      no_zip_data()
+    } else {
+      zip_data()
+    }
   })
   
   
@@ -136,9 +161,9 @@ login <- function(input, output, session) {
     } else {
       credentials$access <- TRUE
       credentials$name <- input$user_name
-      credentials$loc <- zip_data()[1]
-      credentials$lat <- gsub("/.*","",zip_data()[2])
-      credentials$long <- gsub(".*/","",zip_data()[2])
+      credentials$loc <- if(input$user_zip == ""){no_zip_data()[1]}else{zip_data()[1]}
+      credentials$lat <- if(input$user_zip == ""){gsub("/.*","",no_zip_data()[2])}else{gsub("/.*","",nzip_data()[2])}
+      credentials$long <- if(input$user_zip == ""){gsub(".*/","",no_zip_data()[2])}else{gsub(".*/","",nzip_data()[2])}
       credentials$img <- img_data()
     }
   })
