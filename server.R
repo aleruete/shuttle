@@ -12,7 +12,7 @@ server<- function(input, output, session) {
   # Home Base ----
   login_info <- callModule(login, "login")
   
-  callModule(home, "home")
+  callModule(home, "home", login_info)
   
   callModule(welcome, "welcome")
   
@@ -50,8 +50,8 @@ server<- function(input, output, session) {
     if(login_info()$access) {
       if (input$ichooseyou %% 2 == 0) {
         user$name = login_info()$name
-        user$loc = user_loc
-        user$img = paste0("https://github.com/",login_info()$name,".png")
+        user$loc = login_info()$loc
+        user$img = login_info()$img
       }
       else {
         user$name = "Charizard" #RAWR

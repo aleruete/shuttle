@@ -6,7 +6,7 @@ homeUI <- function(id) {
   uiOutput(ns("home_ui"))
 }
 
-home <- function(input, output, session) {
+home <- function(input, output, session, login_info) {
 
   output$home_ui <- renderUI({
     
@@ -546,9 +546,10 @@ ticker_list <- reactive({
 })
 
  # Weather ----
+
 output$weather <- renderUI({
   dark.base1 <- "https://forecast.io/embed/#"
-  call.dark1 <- paste(dark.base1, "lat=", user_lat, "&lon=", user_long, "&name=", user_loc, sep="")
+  call.dark1 <- paste(dark.base1, "lat=", login_info()$lat, "&lon=", login_info()$long, "&name=", login_info()$loc, sep="")
   tags$iframe(src=call.dark1, width= "100%", height= 230, frameborder= 0)
 })
 
