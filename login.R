@@ -1,4 +1,5 @@
 require(shinyBS)
+require(shinyWidgets)
 
 loginUI <- function(id) {
   ns <- NS(id)
@@ -9,8 +10,7 @@ loginUI <- function(id) {
 login <- function(input, output, session) {
   
   credentials <- reactiveValues(access = FALSE,
-                                name = NULL,
-                                zip = NULL)
+                                name = NULL)
   
   output$login_ui <- renderUI({
     
@@ -20,9 +20,7 @@ login <- function(input, output, session) {
       div(style = 'width: 300px; max-width: 100%; margin: 0 auto; padding: 20px;',
         wellPanel(style = "padding-top: 0;",
             
-            h2("Login", style = 'color:#1c1e21; font-weight: bold; text-align: center; padding-top: 0;'),
-
-            div(style = 'text-align: center;',
+            div(style = 'text-align: center; padding-top: 15px;',
                 htmlOutput(session$ns("github_img")),
                 div(style = 'padding-top: 5px; font-size: 20px;',
                   htmlOutput(session$ns("zip_location")))
@@ -30,24 +28,31 @@ login <- function(input, output, session) {
             
             hr(),
             
-            div(style = 'padding-top: 10px;',
+            div(style = 'padding-top: 0;',
+                h3("Login", style = 'color:#1c1e21; font-weight: bold; text-align: center;'),
                 fluidRow(
                   column(9, style = 'padding-right: 0;',
-                         textInput(session$ns("user_name"), label = NULL, value = user_github, placeholder = "GitHub User Name")),
+                         shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, value = user_github, placeholder = "Enter a Username", addon = icon("user-astronaut"))),
                   column(3, shinyBS::bsButton(session$ns("q_name"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
-                  bsTooltip(id = session$ns("q_name"), "Only used to pull your avatar.", placement = "right", trigger = "click", options = NULL)
+                  bsTooltip(id = session$ns("q_name"), "Enter your GitHub username to use that avatar.", placement = "right", trigger = "click", options = NULL)
                 ),
                 
                 fluidRow(
                   column(9, style = 'padding-right: 0;',
-                         textInput(session$ns("user_zip"), label = NULL, value = "11201", placeholder = "Zip Code")),
+                         shinyWidgets::textInputAddon(session$ns("user_zip"), label = NULL, value = "11201", placeholder = "Zip Code", addon = icon("globe-americas"))),
                   column(3, shinyBS::bsButton(session$ns("q_zip"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
                   bsTooltip(id = session$ns("q_zip"), "Only used to show a weather forecast and display your city.", placement = "right", trigger = "click", options = NULL)
                   )
             ),
 
             div(style = 'text-align: center;',
-                actionButton(session$ns("login_button"), "Launch", class = 'btn-primary', style = 'color: white;')
+                fluidRow(
+                  column(4,
+                         actionButton(session$ns("login_button"), "Launch", class = 'btn-primary', style = 'color: white;')
+                  ),
+                  column(8, style = 'color:#1c1e21; font-size: 16px; text-align: center; padding-top: 5px;',
+                         htmlOutput(session$ns("github_signup"))
+                ))
             ),
             
             uiOutput(session$ns("login_error"))
@@ -70,45 +75,71 @@ login <- function(input, output, session) {
     }, error = function(e) FALSE)
   }
 
-  
-  output$github_img <- renderText({
+  img_data <- eventReactive(input$user_name, {
     
     if (!InputCheck(input$user_name)) {
-      '<img src="github_pic.png"/ class="github-img">'
+      'github_pic.png'
     } else {
-      paste0('<img src="https://github.com/',input$user_name,'.png"/ class="github-img">')
+      paste0('https://github.com/',input$user_name,'.png')
     }
   })
   
   
-  observeEvent(input$user_zip, {
-    zip_data <- input$user_zip %>%
+  output$github_img <- renderText({
+    
+    if (!InputCheck(input$user_name)) {
+      paste0('<img src="',img_data(),'"/ class="github-img">')
+    } else {
+      paste0('<img src="',img_data(),'"/ class="github-img">')
+    }
+  })
+  
+  output$github_signup <- renderText({
+    
+    paste0('<a href="https://github.com/join?source=header-home" target="_blank">Join GitHub</a>')
+  })
+  
+  
+  zip_data <- eventReactive(input$user_zip, {
+    input$user_zip %>%
       paste0('http://www.geonames.org/postalcode-search.html?q=',.,'&country=') %>%
       read_html() %>%
       html_nodes(.,'tr:nth-child(2) td:nth-child(2) , tr:nth-child(3) small') %>%
       html_text() %>%
       trimws()
+  })
+  
+  
+  observeEvent(input$user_zip, {
     
     output$zip_location <- renderText({
-      req(zip_data)
+      req(zip_data())
       shiny::validate(
         need(input$user_zip != "", "Enter Zip Code")
       )
-      paste0(zip_data[1])
+      paste0(zip_data()[1])
     })
   })
   
 
   observeEvent(input$login_button, {
     
-    if (!InputCheck(input$user_name)) {
+    if (trimws(input$user_name) == "") {
       output$login_error <- renderUI({
-        p("Invalid username", style = "color: red; font-weight: bold; padding-top: 5px;", style = 'font-weight: bold; text-align: center;')
+        fluidRow(
+          hr(),
+          div(style = 'text-align: center; padding-top: 5px;',
+              p("Please Enter a Username", style = 'color: red;')
+          )
+        )
       })
     } else {
       credentials$access <- TRUE
       credentials$name <- input$user_name
-      credentials$zip <- input$user_zip
+      credentials$loc <- zip_data()[1]
+      credentials$lat <- gsub("/.*","",zip_data()[2])
+      credentials$long <- gsub(".*/","",zip_data()[2])
+      credentials$img <- img_data()
     }
   })
 
