@@ -85,7 +85,7 @@ home <- function(input, output, session, login_info) {
                                                                     choices = c("r","shiny","shinydashboard","javascript","css","html","xml",
                                                                                 "tidyverse","rvest","tidyquant","quantmod","shinyjs"))
                                                  ),
-                                                 div(style = 'padding: 0 15px 0 15px;',
+                                                 div(class = "so-box",
                                                      uiOutput(session$ns("so_questions"))),
                                                  uiOutput(session$ns("so_header_type"))
                                         )))
@@ -202,6 +202,8 @@ home <- function(input, output, session, login_info) {
   
   url_sort <- reactiveVal("active")
   
+  url_count <- reactiveVal()
+  
   observeEvent(input$so_search, {
     url_tag(input[["so_search"]])
   })
@@ -244,6 +246,7 @@ home <- function(input, output, session, login_info) {
     item_link <- read_html(url) %>% html_nodes("link") %>% html_attr('href')
     
     item_link <- item_link[2:length(item_link)]
+    url_count(length(item_link))
     
     tb <- data.frame(item_title,item_link) %>%
       lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
@@ -259,7 +262,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$so_questions <- renderUI({
-    lapply(as.list(2:5), function(i) {
+    lapply(as.list(2:url_count()), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("so_questions", i))),
@@ -287,7 +290,6 @@ home <- function(input, output, session, login_info) {
         searchField = c("label","value")
       )
     )
-    
   })
   
   output$stock_dates <- renderUI({

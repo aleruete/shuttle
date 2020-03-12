@@ -112,6 +112,13 @@
   border: 1px solid #dddfe2;
 }
 
+.so-box{
+  padding: 0 15px 0 15px;
+  height: 345px; 
+  max-width: 100%; 
+  overflow-x: hidden;
+}
+
 
 /* Custom Selectize Input Settings for Home Page */
 .home-selectize-input .selectize-input::after{
