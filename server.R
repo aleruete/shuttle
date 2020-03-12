@@ -48,7 +48,7 @@ server<- function(input, output, session) {
   
   observe({
     if(login_info()$access) {
-      if (input$ichooseyou %% 2 == 0) {
+      if(input$ichooseyou %% 2 == 0) {
         user$name = login_info()$name
         user$loc = login_info()$loc
         user$img = login_info()$img
