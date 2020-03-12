@@ -31,14 +31,14 @@ login <- function(input, output, session) {
             div(style = 'padding-top: 0;',
                 fluidRow(
                   column(9, style = 'padding-right: 0;',
-                         shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, value = user_github, placeholder = "Enter a Username", addon = icon("user-astronaut"))),
+                         shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, placeholder = "Enter a Username", addon = icon("user-astronaut"))),
                   column(3, shinyBS::bsButton(session$ns("q_name"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
                   bsTooltip(id = session$ns("q_name"), "Enter your GitHub username to use that avatar.", placement = "right", trigger = "click", options = NULL)
                 ),
                 
                 fluidRow(
                   column(9, style = 'padding-right: 0;',
-                         shinyWidgets::textInputAddon(session$ns("user_zip"), label = NULL, value = "11201", placeholder = "Zip Code", addon = icon("globe-americas"))),
+                         shinyWidgets::textInputAddon(session$ns("user_zip"), label = NULL, placeholder = "Zip Code", addon = icon("globe-americas"))),
                   column(3, shinyBS::bsButton(session$ns("q_zip"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
                   bsTooltip(id = session$ns("q_zip"), "Only used to show a weather forecast and display your city.", placement = "right", trigger = "click", options = NULL)
                   )
@@ -161,9 +161,9 @@ login <- function(input, output, session) {
     } else {
       credentials$access <- TRUE
       credentials$name <- input$user_name
-      credentials$loc <- if(input$user_zip == ""){no_zip_data()[1]}else{zip_data()[1]}
-      credentials$lat <- if(input$user_zip == ""){gsub("/.*","",no_zip_data()[2])}else{gsub("/.*","",nzip_data()[2])}
-      credentials$long <- if(input$user_zip == ""){gsub(".*/","",no_zip_data()[2])}else{gsub(".*/","",nzip_data()[2])}
+      credentials$loc <- if(input$user_zip == "") {no_zip_data()[1]} else {zip_data()[1]}
+      credentials$lat <- if(input$user_zip == "") {gsub("/.*","",no_zip_data()[2])} else {gsub("/.*","",zip_data()[2])}
+      credentials$long <- if(input$user_zip == "") {gsub(".*/","",no_zip_data()[2])} else {gsub(".*/","",zip_data()[2])}
       credentials$img <- img_data()
     }
   })
