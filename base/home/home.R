@@ -74,8 +74,8 @@ home <- function(input, output, session, login_info) {
                           ),
                           column(3, div(style = 'padding-left: 15px;',
                                         fluidRow(class = 'shuttle-box-1',
-                                                 div(style = 'font-size: 18px; text-align: center;',
-                                                     htmlOutput(session$ns("so_header"), class = 'header-underline')),
+                                                 div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                     htmlOutput(session$ns("so_header")), class = 'header-underline'),
                                                  div(class='home-selectize-input',
                                                      selectizeInput(inputId = session$ns("so_search"), 
                                                                     label = NULL,
@@ -97,78 +97,34 @@ home <- function(input, output, session, login_info) {
                                             plotOutput(session$ns("ticker_plot")) %>% shinycssloaders::withSpinner(color = "#FE01B2"))))
           )),
           column(4, div(style = 'padding-right: 15px;', # Only need padding-right bc the box to the left has padding already
-                        fluidRow(class = 'shuttle-box-1',
-                                 tags$head(tags$style('#date-container * {display: inline;}')),
-                                 div(id = "date-container",
-                                     icon("clock"),
-                                     textOutput(session$ns("currentTime")),
-                                     div(style = 'padding-left: 15px;',
-                                         icon("calendar-plus")),
-                                     textOutput(session$ns("currentDay")),
-                                     div(style = 'padding-left: 15px;',
-                                         icon("calendar-alt")),
-                                     textOutput(session$ns("currentDate")), class = 'date'),
-                                 fluidRow(style = 'padding: 15px 20px 0 20px;',
-                                          column(4,
-                                                 tags$div(class='home-selectize-input',
-                                                          selectizeInput(
-                                                            inputId = session$ns("control_gnews1"),
-                                                            label = NULL,
-                                                            selected = "topnews",
-                                                            choices = c("Top News" = "topnews",
-                                                                        "Sports" = "sports",
-                                                                        "Technology" = "technology",
-                                                                        "Business" = "business",
-                                                                        "Science" = "science",
-                                                                        "Health" = "health")
-                                                          )
-                                                 )
-                                          ),
-                                          
-                                          column(4,
-                                                 tags$div(tags$head(tags$style(HTML('
-.js-irs-0 .irs-min, .js-irs-0 .irs-max, .js-irs-0 .irs-single{visibility: hidden !important;}
-.js-irs-0 .irs-bar-edge{border: 1px solid #FE01B2; background: #FE01B2;}
-.js-irs-0 .irs-bar{border-top: 1px solid #FE01B2; border-bottom: 1px solid #FE01B2; background: #FE01B2;}
-.js-irs-0{margin-top: -10px;}
-    '))),
-                                                          sliderInput(session$ns("articles"),
-                                                                      label = NULL,
-                                                                      ticks = FALSE,
-                                                                      min = 3,
-                                                                      max = 10,
-                                                                      value = 5)
-                                                 )),
-                                          
-                                          column(4,
-                                                 tags$div(class='home-selectize-input',
-                                                          selectizeInput(
-                                                            inputId = session$ns("control_gnews2"),
-                                                            label = NULL,
-                                                            selected = c("sports","technology","business","science","health") %>% sample(., 1),
-                                                            choices = c("Top News" = "topnews",
-                                                                        "Sports" = "sports",
-                                                                        "Technology" = "technology",
-                                                                        "Business" = "business",
-                                                                        "Science" = "science",
-                                                                        "Health" = "health")
-                                                          )
-                                                 ))
-                                 )
-                        ),
-                        
-                        fluidRow(style = 'padding-top: 15px;',
+                        fluidRow(
                                  column(6, div(style = 'padding-right: 7px;',
-                                               fluidRow(class = 'shuttle-box-1',
-                                                        div(style = 'font-size: 22px; text-align: center; padding-bottom: 5px;',
+                                               fluidRow(class = 'shuttle-box-1', style = 'padding-bottom: 20px;',
+                                                        div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
                                                             htmlOutput(session$ns("header1")), class = 'header-underline'),
-                                                        div(style = 'padding: 0 15px 0 15px;',
+                                                        
+                                                        div(class='home-selectize-input',
+                                                                 selectizeInput(
+                                                                   inputId = session$ns("control_gnews1"),
+                                                                   label = NULL,
+                                                                   selected = "topnews",
+                                                                   width = "100%",
+                                                                   choices = c("Top News" = "topnews",
+                                                                               "Sports" = "sports",
+                                                                               "Technology" = "technology",
+                                                                               "Business" = "business",
+                                                                               "Science" = "science",
+                                                                               "Health" = "health")
+                                                                 )
+                                                        ),
+                                                        
+                                                        div(class = 'topnews-box', #style = 'padding: 0 15px 0 15px;',
                                                             uiOutput(session$ns("gnews1")))))
                                  ),
                                  column(6,
                                         div(style = 'padding-left: 8px;',
                                             fluidRow(class = "shuttle-box-1",
-                                                     div(style = 'font-size: 22px; text-align: center; padding-bottom: 5px;',
+                                                     div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
                                                          htmlOutput(session$ns("header2")), class = 'header-underline'),
                                                      div(style = 'padding: 0 15px 0 15px;',
                                                          uiOutput(session$ns("gnews2"))))
@@ -178,22 +134,13 @@ home <- function(input, output, session, login_info) {
           ))
         )))
   })
-
-  # Date and Time ----
   
-  output$currentTime <- renderText({
-    invalidateLater(1000, session)
-    paste0(strftime(Sys.time(),"%r %Z"))
-  })
+  # Weather ----
   
-  output$currentDay <- renderText({
-    invalidateLater(1000, session)
-    paste0(strftime(Sys.time(),"%A"))
-  })
-  
-  output$currentDate <- renderText({
-    invalidateLater(1000, session)
-    paste0(strftime(Sys.time(),"%B %e, %Y"))
+  output$weather <- renderUI({
+    dark.base1 <- "https://forecast.io/embed/#"
+    call.dark1 <- paste(dark.base1, "lat=", login_info()$lat, "&lon=", login_info()$long, "&name=", login_info()$loc, sep="")
+    tags$iframe(src=call.dark1, width= "100%", height= 230, frameborder= 0)
   })
   
   # Stack Overflow ----
@@ -297,7 +244,6 @@ home <- function(input, output, session, login_info) {
     dateRangeInput(session$ns("date_range"), label = NULL, 
                    start = Sys.Date() - as.numeric(input$date_preset),
                    end = Sys.Date())
-    
   })
   
   # Google News Feed ----
@@ -340,7 +286,7 @@ home <- function(input, output, session, login_info) {
 
   })
   
-  observeEvent(refresh(), { #input$control_gnews2
+  observeEvent(refresh(), {
 
     news <- c("sports","technology","business","entertainment","science","health") %>% sample(.,1)
     
@@ -372,13 +318,12 @@ home <- function(input, output, session, login_info) {
       gfeed2$choice <- "?hl=en-US&gl=US&ceid=US:en"
       output$header2 <- renderText('<a href="https://news.google.com/?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Top News</a>')
     }
-
   })
   
   refresh <- reactiveTimer(30000)
+  num_articles <- reactiveVal(NULL)
   
   observe({
-    req(length(input$articles)>0)
     refresh() #refreshes the extract
     
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed1$choice)) %>%
@@ -389,8 +334,9 @@ home <- function(input, output, session, login_info) {
     
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
+    num_articles(length(headline))
     
-    lapply(seq_len(input$articles), function(i) {
+    lapply(seq_len(num_articles()), function(i) {
       output[[paste0("gnews1", i)]] <- renderUI({
         paste0('<h5>',outlet[i],'</h5>','<a href=','"',tb$item_link[i],'"',' target="_blank">',headline[i],'</a>') %>%
           HTML()
@@ -399,7 +345,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$gnews1 <- renderUI({
-    lapply(as.list(seq_len(input$articles)), function(i) {
+    lapply(as.list(seq_len(num_articles())), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("gnews1", i))),
@@ -410,8 +356,7 @@ home <- function(input, output, session, login_info) {
   })
   
   observe({
-    req(length(input$articles)>0)
-    
+
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed2$choice)) %>%
       select("item_title","item_link") %>%
       lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
@@ -421,7 +366,7 @@ home <- function(input, output, session, login_info) {
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
     
-    lapply(seq_len(input$articles), function(i) {
+    lapply(seq_len(3), function(i) {
       output[[paste0("gnews2", i)]] <- renderUI({
         paste0('<h5>',outlet[i],'</h5>','<a href=','"',tb$item_link[i],'"',' target="_blank">',headline[i],'</a>') %>%
           HTML()
@@ -430,7 +375,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$gnews2 <- renderUI({
-    lapply(as.list(seq_len(input$articles)), function(i) {
+    lapply(as.list(seq_len(3)), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("gnews2", i))),
@@ -547,14 +492,6 @@ ticker_list <- reactive({
   names(tickers_vec) <- company_info()$security
   
   return(tickers_vec)
-})
-
- # Weather ----
-
-output$weather <- renderUI({
-  dark.base1 <- "https://forecast.io/embed/#"
-  call.dark1 <- paste(dark.base1, "lat=", login_info()$lat, "&lon=", login_info()$long, "&name=", login_info()$loc, sep="")
-  tags$iframe(src=call.dark1, width= "100%", height= 230, frameborder= 0)
 })
 
 }
