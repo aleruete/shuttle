@@ -119,6 +119,12 @@
   overflow-x: hidden;
 }
 
+.topnews-box{
+  padding: 0 15px 15px 15px;
+  height: 805px; 
+  max-width: 100%; 
+  overflow-x: hidden;
+}
 
 /* Custom Selectize Input Settings for Home Page */
 .home-selectize-input .selectize-input::after{
