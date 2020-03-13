@@ -1,4 +1,5 @@
 require(xml2)
+require(RCurl)
 require(lubridate)
 
 safe_xml_find_first <- safely(xml_find_first)
@@ -19,8 +20,11 @@ formats <- c("a d b Y H:M:S z", "a, d b Y H:M z",
              "a b dH:M:S Y")
 
 googleRSS <- function(feed){
-  
-  doc <- read_xml(feed)
+  doc = NULL  
+  while(is.null(doc)) {
+    if(url.exists(feed)){
+      doc <- try(read_xml(feed))}
+  }
   
   channel <- xml_find_all(doc, "channel")
   
@@ -54,5 +58,4 @@ googleRSS <- function(feed){
       safe_run() %>%
       xml_text()
   )
-
 }
