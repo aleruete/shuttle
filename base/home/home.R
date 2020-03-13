@@ -132,7 +132,7 @@ home <- function(input, output, session, login_info) {
 .js-irs-0 .irs-bar{border-top: 1px solid #FE01B2; border-bottom: 1px solid #FE01B2; background: #FE01B2;}
 .js-irs-0{margin-top: -10px;}
     '))),
-                                                          sliderInput(session$ns("articles1"),
+                                                          sliderInput(session$ns("articles"),
                                                                       label = NULL,
                                                                       ticks = FALSE,
                                                                       min = 3,
@@ -340,29 +340,31 @@ home <- function(input, output, session, login_info) {
 
   })
   
-  observeEvent(input$control_gnews2, {
+  observeEvent(refresh(), { #input$control_gnews2
 
-    if(input$control_gnews2 == "sports"){
+    news <- c("sports","technology","business","entertainment","science","health") %>% sample(.,1)
+    
+    if(news == "sports"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp1ZEdvU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp1ZEdvU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Sports</a>')
     }
-    else if(input$control_gnews2 == "technology"){
+    else if(news == "technology"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGRqTVhZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Technology</a>')
     }
-    else if(input$control_gnews2 == "business"){
+    else if(news == "business"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRGx6TVdZU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Business</a>')
     }
-    else if(input$control_gnews2 == "entertainment"){
+    else if(news == "entertainment"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREpxYW5RU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNREpxYW5RU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Entertainment</a>')
     }
-    else if(input$control_gnews2 == "science"){
+    else if(news == "science"){
       gfeed2$choice <- "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp0Y1RjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp0Y1RjU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Science</a>')
     }
-    else if(input$control_gnews2 == "health"){
+    else if(news == "health"){
       gfeed2$choice <- "/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNR3QwTlRFU0FtVnVLQUFQAQ?hl=en-US&gl=US&ceid=US%3Aen"
       output$header2 <- renderText('<a href="https://news.google.com/topics/CAAqIQgKIhtDQkFTRGdvSUwyMHZNR3QwTlRFU0FtVnVLQUFQAQ?hl=en-US&gl=US&ceid=US%3Aen" target="_blank">Health</a>')
     }
@@ -376,7 +378,7 @@ home <- function(input, output, session, login_info) {
   refresh <- reactiveTimer(30000)
   
   observe({
-    req(length(input$articles1)>0)
+    req(length(input$articles)>0)
     refresh() #refreshes the extract
     
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed1$choice)) %>%
@@ -388,7 +390,7 @@ home <- function(input, output, session, login_info) {
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
     
-    lapply(seq_len(input$articles1), function(i) {
+    lapply(seq_len(input$articles), function(i) {
       output[[paste0("gnews1", i)]] <- renderUI({
         paste0('<h5>',outlet[i],'</h5>','<a href=','"',tb$item_link[i],'"',' target="_blank">',headline[i],'</a>') %>%
           HTML()
@@ -397,7 +399,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$gnews1 <- renderUI({
-    lapply(as.list(seq_len(input$articles1)), function(i) {
+    lapply(as.list(seq_len(input$articles)), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("gnews1", i))),
@@ -408,7 +410,7 @@ home <- function(input, output, session, login_info) {
   })
   
   observe({
-    req(length(input$articles1)>0)
+    req(length(input$articles)>0)
     
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed2$choice)) %>%
       select("item_title","item_link") %>%
@@ -419,7 +421,7 @@ home <- function(input, output, session, login_info) {
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
     
-    lapply(seq_len(input$articles1), function(i) {
+    lapply(seq_len(input$articles), function(i) {
       output[[paste0("gnews2", i)]] <- renderUI({
         paste0('<h5>',outlet[i],'</h5>','<a href=','"',tb$item_link[i],'"',' target="_blank">',headline[i],'</a>') %>%
           HTML()
@@ -428,7 +430,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$gnews2 <- renderUI({
-    lapply(as.list(seq_len(input$articles1)), function(i) {
+    lapply(as.list(seq_len(input$articles)), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("gnews2", i))),
