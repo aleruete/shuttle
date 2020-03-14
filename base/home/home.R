@@ -85,9 +85,10 @@ home <- function(input, output, session, login_info) {
                                                                     choices = c("r","shiny","shinydashboard","javascript","css","html","xml",
                                                                                 "tidyverse","rvest","tidyquant","quantmod","shinyjs"))
                                                  ),
-                                                 div(class = "so-box",
+                                                 div(class = 'so-box',
                                                      uiOutput(session$ns("so_questions"))),
-                                                 uiOutput(session$ns("so_header_type"))
+                                                 div(style = 'padding-top: 5px;',
+                                                 uiOutput(session$ns("so_header_type")))
                                         )))
                         ),
                         
@@ -117,8 +118,7 @@ home <- function(input, output, session, login_info) {
                                                                                "Health" = "health")
                                                                  )
                                                         ),
-                                                        
-                                                        div(class = 'topnews-box', #style = 'padding: 0 15px 0 15px;',
+                                                        div(class = 'topnews-box',
                                                             uiOutput(session$ns("gnews1")))))
                                  ),
                                  column(6,
