@@ -14,17 +14,23 @@ safe_run <- function(res) {
   return(ret)
 }
 
+safe_feed <- function(url){
+  doc = NULL
+  while(is.null(doc)) {
+    if(url.exists(url)){
+      doc <- try(read_xml(url))}
+  }
+  return(doc)
+}
+
 formats <- c("a d b Y H:M:S z", "a, d b Y H:M z",
              "Y-m-d H:M:S z", "d b Y H:M:S",
              "d b Y H:M:S z", "a b d H:M:S z Y",
              "a b dH:M:S Y")
 
 googleRSS <- function(feed){
-  doc = NULL  
-  while(is.null(doc)) {
-    if(url.exists(feed)){
-      doc <- try(read_xml(feed))}
-  }
+  
+  doc <- safe_feed(feed)
   
   channel <- xml_find_all(doc, "channel")
   
