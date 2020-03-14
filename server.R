@@ -2,12 +2,14 @@ source("ui.R")
 
 server<- function(input, output, session) {
   
-  # Keeps the app awake----
+  # Housekeeping ----
   stayAwake <- reactiveTimer(10000)
   observe({
     stayAwake()
     cat(".")
   })
+  
+  session$onSessionEnded(stopApp)
   
   # Home Base ----
   login_info <- callModule(login, "login")
