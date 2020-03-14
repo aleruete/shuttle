@@ -123,12 +123,19 @@ home <- function(input, output, session, login_info) {
                                  ),
                                  column(6,
                                         div(style = 'padding-left: 8px;',
-                                            fluidRow(class = "shuttle-box-1",
+                                            fluidRow(class = 'shuttle-box-1',
                                                      div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
                                                          htmlOutput(session$ns("header2")), class = 'header-underline'),
                                                      div(style = 'padding: 0 15px 0 15px;',
-                                                         uiOutput(session$ns("gnews2"))))
-                                            
+                                                         uiOutput(session$ns("gnews2")))),
+                                            div(style = 'padding-top: 15px;',
+                                            fluidRow(class = 'shuttle-box-1',
+                                                     div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                         htmlOutput(session$ns("dsfeed_header")), class = 'header-underline'),
+                                                     div(style = 'padding: 10px 15px 0 15px;',
+                                                         uiOutput(session$ns("dsfeeds")))
+                                                     ))
+
                                         ))
                         )
           ))
@@ -379,6 +386,73 @@ home <- function(input, output, session, login_info) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("gnews2", i))),
+               hr()
+        )
+      )
+    })
+  })
+  
+  # Data Science Feeds ----
+  
+  observe({
+    refresh()
+    feed <- c("reddit","kdnuggets","kaggle","R_MLlist") %>% sample(.,1)
+    
+    if(feed == "reddit") {
+      output$dsfeed_header <- renderText('<a href="https://www.reddit.com/r/datascience/" target="_blank">r/DataScience</a>')
+        
+      tb <- redditRSS('https://www.reddit.com/r/datascience/.rss') %>%
+        select("item_title","item_link") %>%
+        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+        as_tibble() %>%
+        slice(-1)
+    } else if (feed == "kdnuggets") {
+      output$dsfeed_header <- renderText('<a href="https://www.kdnuggets.com/news/index.html" target="_blank">KDnuggets</a>')
+      
+      tb <- googleRSS("https://www.kdnuggets.com/feed") %>%
+        select("item_title","item_link") %>%
+        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+        as_tibble()
+    } else if(feed == "kaggle") {
+      output$dsfeed_header <- renderText('<a href="https://medium.com/kaggle-blog" target="_blank">Kaggle Blog</a>')
+      
+      tb <- googleRSS("https://medium.com/feed/kaggle-blog") %>%
+        select("item_title","item_link") %>%
+        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+        as_tibble()
+    } else if(feed == "R_MLlist") {
+      output$dsfeed_header <- renderText('<a href="https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24" target="_blank">R ML Packages</a>')
+      
+      tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
+        select("item_title","item_link") %>%
+        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+        as_tibble() %>%
+        sample_n(.,4)
+    }
+
+    if(feed == "R_MLlist") {
+      headline <- gsub(".*- ","",tb$item_title)
+    } else { 
+      headline <- tb$item_title
+    }
+    
+    lapply(seq_len(4), function(i) {
+      output[[paste0("dsfeeds", i)]] <- renderUI({
+        paste0('<a href=','"',tb$item_link[i],'"',' target="_blank">',headline[i],'</a>') %>%
+          HTML()
+      })
+    })
+  })
+  
+  output$dsfeeds <- renderUI({
+    lapply(as.list(seq_len(4)), function(i) {
+      fluidRow(
+        column(12,
+               htmlOutput(session$ns(paste0("dsfeeds", i))),
                hr()
         )
       )
