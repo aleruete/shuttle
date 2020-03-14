@@ -35,10 +35,19 @@
 
 .links {
   font-size: 20px;
+  color: #f2f2f2;
   float: left;
   padding: 0 20px;
   margin-top: 11px;
   letter-spacing: 10px;
+}
+
+.links a{
+  color: #f2f2f2;
+}
+
+.links a:hover{
+  color: #FE01B2;
 }
 
 .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{

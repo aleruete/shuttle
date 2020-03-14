@@ -49,10 +49,10 @@ ui <- dashboardPage(title = "Shuttle",
                           HTML(paste0('
     $(document).ready(function() {
      $("header").find("nav").append(\'<span class="links">'
-                                      ,'<a href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q" target="_blank>" style="color: #f2f2f2"','<i class="fab fa-youtube"></i></a>'
-                                      ,'<a href="https://www.instagram.com/shuttleds/" target="_blank>" style="color: #f2f2f2"','<i class="fab fa-instagram"></i></a>'
-                                      ,'<a href="https://twitter.com/shuttledatasci/" target="_blank>" style="color: #f2f2f2"','<i class="fab fa-twitter"></i></a>'
-                                      ,'<a href="https://github.com/shuttleds" target="_blank>" style="color: #f2f2f2"','<i class="fab fa-github"></i></a>'
+                                      ,'<a href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q" target="_blank>"','<i class="fab fa-youtube"></i></a>'
+                                      ,'<a href="https://www.instagram.com/shuttleds/" target="_blank>"','<i class="fab fa-instagram"></i></a>'
+                                      ,'<a href="https://twitter.com/shuttledatasci/" target="_blank>"','<i class="fab fa-twitter"></i></a>'
+                                      ,'<a href="https://github.com/shuttleds" target="_blank>"','<i class="fab fa-github"></i></a>'
                                       ,'</span>\');
     })
     '))),
