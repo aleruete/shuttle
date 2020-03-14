@@ -194,18 +194,11 @@ home <- function(input, output, session, login_info) {
   observe({
     req(input$so_search>0 & url_tag()>0)
 
-    url <- paste0('https://stackoverflow.com/feeds/tag?tagnames=',url_tag(),'&sort=',url_sort())
+    tb <- soRSS(paste0('https://stackoverflow.com/feeds/tag?tagnames=',url_tag(),'&sort=',url_sort())) %>%
+      clean_titles_links() %>%
+      slice(-1)
     
-    item_title <- read_html(url) %>% html_nodes("title") %>% html_text()
-    item_link <- read_html(url) %>% html_nodes("link") %>% html_attr('href')
-    
-    item_link <- item_link[2:length(item_link)]
-    url_count(length(item_link))
-    
-    tb <- data.frame(item_title,item_link) %>%
-      lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
-      lapply(., function(x) gsub("\u00E2", "'", x)) %>% #removes the a-hat
-      as_tibble()
+    url_count(length(tb$item_title))
     
     lapply(seq_len(length(tb$item_title)), function(i) {
       output[[paste0("so_questions", i)]] <- renderUI({
@@ -216,7 +209,7 @@ home <- function(input, output, session, login_info) {
   })
   
   output$so_questions <- renderUI({
-    lapply(as.list(2:url_count()), function(i) {
+    lapply(as.list(seq_len(url_count())), function(i) {
       fluidRow(
         column(12,
                htmlOutput(session$ns(paste0("so_questions", i))),
@@ -334,10 +327,7 @@ home <- function(input, output, session, login_info) {
     refresh() #refreshes the extract
     
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed1$choice)) %>%
-      select("item_title","item_link") %>%
-      lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
-      lapply(., function(x) gsub("\u00E2", "'", x)) %>% #removes the a-hat
-      as_tibble()
+      clean_titles_links()
     
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
@@ -365,10 +355,7 @@ home <- function(input, output, session, login_info) {
   observe({
 
     tb <- googleRSS(paste0("https://news.google.com/rss",gfeed2$choice)) %>%
-      select("item_title","item_link") %>%
-      lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>% #removes the euro and tm symbol
-      lapply(., function(x) gsub("\u00E2", "'", x)) %>% #removes the a-hat
-      as_tibble()
+      clean_titles_links()
     
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
@@ -402,35 +389,23 @@ home <- function(input, output, session, login_info) {
       output$dsfeed_header <- renderText('<a href="https://www.reddit.com/r/datascience/" target="_blank">r/DataScience</a>')
         
       tb <- redditRSS('https://www.reddit.com/r/datascience/.rss') %>%
-        select("item_title","item_link") %>%
-        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
-        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
-        as_tibble() %>%
+        clean_titles_links() %>%
         slice(-1)
     } else if (feed == "kdnuggets") {
       output$dsfeed_header <- renderText('<a href="https://www.kdnuggets.com/news/index.html" target="_blank">KDnuggets</a>')
       
       tb <- googleRSS("https://www.kdnuggets.com/feed") %>%
-        select("item_title","item_link") %>%
-        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
-        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
-        as_tibble()
+        clean_titles_links()
     } else if(feed == "kaggle") {
       output$dsfeed_header <- renderText('<a href="https://medium.com/kaggle-blog" target="_blank">Kaggle Blog</a>')
       
       tb <- googleRSS("https://medium.com/feed/kaggle-blog") %>%
-        select("item_title","item_link") %>%
-        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
-        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
-        as_tibble()
+        clean_titles_links()
     } else if(feed == "R_MLlist") {
       output$dsfeed_header <- renderText('<a href="https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24" target="_blank">R ML Packages</a>')
       
       tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
-        select("item_title","item_link") %>%
-        lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
-        lapply(., function(x) gsub("\u00E2", "'", x)) %>%
-        as_tibble() %>%
+        clean_titles_links() %>%
         sample_n(.,4)
     }
 

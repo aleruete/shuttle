@@ -93,6 +93,22 @@ redditRSS <- function(feed){
 }
 
 
+soRSS <- function(feed){
+  
+  doc <- read_html(feed)
+  
+  tibble(
+    item_title = html_nodes(doc, "title") %>%
+      html_text(),
+    item_link = html_nodes(doc, "link") %>%
+      map(xml_attrs) %>%
+      map_df(~as.list(.)) %>%
+      slice(-1) %>%
+      .$href
+  )
+}
+
+
 listScrape <- function(url, li, a) {
   
   doc <- read_html(url)
@@ -106,3 +122,13 @@ listScrape <- function(url, li, a) {
       trimws()
   )
 }
+
+clean_titles_links <- function(tb) {
+  tb %>%
+    select("item_title","item_link") %>%
+    lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+    lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+    as_tibble()
+}
+
+
