@@ -14,7 +14,7 @@ safe_run <- function(res) {
   return(ret)
 }
 
-safe_feed <- function(url){
+safe_xml_feed <- function(url){
   doc = NULL
   while(is.null(doc)) {
     if(url.exists(url)){
@@ -30,7 +30,7 @@ formats <- c("a d b Y H:M:S z", "a, d b Y H:M z",
 
 googleRSS <- function(feed){
   
-  doc <- safe_feed(feed)
+  doc <- safe_xml_feed(feed)
   
   channel <- xml_find_all(doc, "channel")
   
@@ -63,5 +63,46 @@ googleRSS <- function(feed){
     item_link = safe_xml_find_first(site, "link") %>%
       safe_run() %>%
       xml_text()
+  )
+}
+
+
+safe_html_feed <- function(url){
+  doc = NULL
+  while(is.null(doc)) {
+    if(url.exists(url)){
+      doc <- try(read_html(url))}
+  }
+  return(doc)
+}
+
+
+redditRSS <- function(feed){
+  
+  doc <- safe_html_feed(feed)
+  
+  tibble(
+    item_title = html_nodes(doc, "title") %>%
+      html_text(),
+    item_link = html_nodes(doc, "link") %>%
+      map(xml_attrs) %>%
+      map_df(~as.list(.)) %>%
+      slice(-1) %>%
+      .$href
+  )
+}
+
+
+listScrape <- function(url, li, a) {
+  
+  doc <- read_html(url)
+  
+  tibble(
+    item_title = html_nodes(doc, li) %>%
+      html_text() %>%
+      trimws(),
+    item_link = html_nodes(doc, a) %>%
+      html_attr('href') %>%
+      trimws()
   )
 }
