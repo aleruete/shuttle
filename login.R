@@ -17,8 +17,8 @@ login <- function(input, output, session) {
     if(credentials$access == TRUE) return(NULL)
     
     fluidPage(
+      # Login by pressing enter
       tags$head(
-        # Shuttle links in header ----
         tags$script(
           HTML(paste0('
       $(document).keyup(function(event) {
@@ -27,6 +27,7 @@ login <- function(input, output, session) {
         }
       });
 ')))),
+      
       div(style = 'width: 300px; max-width: 100%; margin: 0 auto; padding: 20px;',
         wellPanel(style = "padding-top: 0;",
             
