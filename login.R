@@ -17,6 +17,16 @@ login <- function(input, output, session) {
     if(credentials$access == TRUE) return(NULL)
     
     fluidPage(
+      tags$head(
+        # Shuttle links in header ----
+        tags$script(
+          HTML(paste0('
+      $(document).keyup(function(event) {
+        if ($("#login-user_name,#login-user_zip").is(":focus") && (event.key == "Enter")) {
+          $("#login-login_button").click();
+        }
+      });
+')))),
       div(style = 'width: 300px; max-width: 100%; margin: 0 auto; padding: 20px;',
         wellPanel(style = "padding-top: 0;",
             
