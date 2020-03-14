@@ -1,5 +1,5 @@
-# install.packages(c("shiny", "shinydashboard", "shinyjs", "tidyverse","rvest",
-#                    "tidyquant","dygraphs","xts","DT","xml2","lubridate"))
+# install.packages(c("shiny","shinydashboard","shinyjs","tidyverse","rvest",
+#                    "tidyquant","dygraphs","xts","DT","xml2","RCurl","lubridate"))
 
 # Loading all the packages needed
 library(shiny)

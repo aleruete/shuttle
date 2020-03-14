@@ -254,10 +254,11 @@ home <- function(input, output, session, login_info) {
   })
   
   # Google News Feed ----
+  refresh <- reactiveTimer(30000)
   
   gfeed1 <- reactiveValues(choice = "?hl=en-US&gl=US&ceid=US:en")
   
-  gfeed2 <- reactiveValues(choice = "/topics/CAAqJggKIiBDQkFTRWdvSUwyMHZNRFp1ZEdvU0FtVnVHZ0pWVXlnQVAB?hl=en-US&gl=US&ceid=US%3Aen")
+  gfeed2 <- reactiveValues(choice = NULL)
   
   observeEvent(input$control_gnews1, {
 
@@ -327,7 +328,6 @@ home <- function(input, output, session, login_info) {
     }
   })
   
-  refresh <- reactiveTimer(30000)
   num_articles <- reactiveVal(NULL)
   
   observe({
