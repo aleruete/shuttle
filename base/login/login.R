@@ -27,48 +27,55 @@ login <- function(input, output, session) {
         }
       });
 ')))),
-      
-      div(style = 'width: 300px; max-width: 100%; margin: 0 auto; padding: 20px;',
-        wellPanel(style = "padding-top: 0;",
-            
-            div(style = 'text-align: center; padding-top: 15px;',
-                htmlOutput(session$ns("github_img")),
-                div(style = 'padding-top: 5px; font-size: 20px;',
-                  htmlOutput(session$ns("zip_location")))
-            ),
-            
-            hr(),
-            
-            div(style = 'padding-top: 0;',
-                fluidRow(
-                  column(9, style = 'padding-right: 0;',
-                         shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, placeholder = "Enter a Username", addon = icon("user-astronaut"))),
-                  column(3, shinyBS::bsButton(session$ns("q_name"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
-                  bsTooltip(id = session$ns("q_name"), "Enter your GitHub username to use that avatar.", placement = "right", trigger = "click", options = NULL)
-                ),
-                
-                fluidRow(
-                  column(9, style = 'padding-right: 0;',
-                         shinyWidgets::textInputAddon(session$ns("user_zip"), label = NULL, placeholder = "Zip Code", addon = icon("globe-americas"))),
-                  column(3, shinyBS::bsButton(session$ns("q_zip"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
-                  bsTooltip(id = session$ns("q_zip"), "Only used to show a weather forecast and display your city.", placement = "right", trigger = "click", options = NULL)
-                  )
-            ),
-
-            div(style = 'text-align: center;',
-                fluidRow(
-                  column(4,
-                         actionButton(session$ns("login_button"), "Launch", class = 'btn-primary', style = 'color: white;')
-                  ),
-                  column(8, style = 'color:#1c1e21; font-size: 16px; text-align: center; padding-top: 5px;',
-                         htmlOutput(session$ns("github_signup"))
-                ))
-            ),
-            
-            uiOutput(session$ns("login_error"))
-            )
-    ))
+      div(style = 'width: 800px; margin: 0 auto; padding-top: 20px;',
+      column(4, style = 'width: 400px; margin: 0 auto;',
+             htmlOutput(session$ns("login_welcome"))
+             ),
+      column(6,
+      div(style = 'width: 300px; margin: 0 auto;', # max-width: 100%; width: 300px; margin: 0 auto; padding: 20px; 
+          wellPanel(style = "padding-top: 0;",
+                    
+                    div(style = 'text-align: center; padding-top: 15px;',
+                        htmlOutput(session$ns("github_img")),
+                        div(style = 'padding-top: 5px; font-size: 20px;',
+                            htmlOutput(session$ns("zip_location")))
+                    ),
+                    
+                    hr(),
+                    
+                    div(style = 'padding-top: 0;',
+                        fluidRow(
+                          column(9, style = 'padding-right: 0;',
+                                 shinyWidgets::textInputAddon(session$ns("user_name"), label = NULL, placeholder = "Choose a Username", addon = icon("user-astronaut"))),
+                          column(3, shinyBS::bsButton(session$ns("q_name"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
+                          bsTooltip(id = session$ns("q_name"), "Enter your GitHub username to use that avatar.", placement = "right", trigger = "click", options = NULL)
+                        ),
+                        
+                        fluidRow(
+                          column(9, style = 'padding-right: 0;',
+                                 shinyWidgets::textInputAddon(session$ns("user_zip"), label = NULL, placeholder = "Zip Code", addon = icon("globe-americas"))),
+                          column(3, shinyBS::bsButton(session$ns("q_zip"), label = "", icon = icon("question-circle", class = 'question-mark'), style = "default", size = "extra-small")),
+                          bsTooltip(id = session$ns("q_zip"), "Only used to show a weather forecast and display your city.", placement = "right", trigger = "click", options = NULL)
+                        )
+                    ),
+                    
+                    div(style = 'text-align: center;',
+                        fluidRow(
+                          column(6,
+                                 actionButton(session$ns("login_button"), "Launch", class = 'button-login', width = "100%", style = 'color: white;') # class = 'btn-primary'
+                          ),
+                          column(6, style = 'color:#1c1e21; font-size: 16px; text-align: center; padding-top: 5px;',
+                                 htmlOutput(session$ns("github_signup"))
+                          ))
+                    ),
+                    
+                    uiOutput(session$ns("login_error"))
+          )
+      ))
+  ))
   })
+  
+  output$login_welcome <- renderUI({includeMarkdown(paste0("base/login/login_welcome.md"))})
   
   # Prevent warnings and errors from user inputs
   InputCheck <- function(input) {
@@ -165,7 +172,7 @@ login <- function(input, output, session) {
         fluidRow(
           hr(),
           div(style = 'text-align: center; padding-top: 5px;',
-              p("Please Enter a Username", style = 'color: red;')
+              p("Please Choose a Username", style = 'color: red;')
           )
         )
       })
