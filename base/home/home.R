@@ -35,9 +35,10 @@ home <- function(input, output, session, login_info) {
                                                          column(6,
                                                                 actionButton(session$ns("random_ticker"), label = "Random Stock", icon = icon("dice"))
                                                          ),
-                                                         column(4, offset = 1,
+                                                         column(6, style = 'margin: 0 auto;',
                                                                 selectizeInput(inputId = session$ns("date_preset"), 
                                                                                label = NULL,
+                                                                               width = '60%',
                                                                                selected = "365",
                                                                                choices = c("1M" = "30",
                                                                                            "3M" = "90",
