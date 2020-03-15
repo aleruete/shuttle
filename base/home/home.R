@@ -75,21 +75,10 @@ home <- function(input, output, session, login_info) {
                           column(3, div(style = 'padding-left: 15px;',
                                         fluidRow(class = 'shuttle-box-1',
                                                  div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
-                                                     htmlOutput(session$ns("so_header")), class = 'header-underline'),
-                                                 div(class='home-selectize-input',
-                                                     selectizeInput(inputId = session$ns("so_search"), 
-                                                                    label = NULL,
-                                                                    selected = c("r","shiny","shinydashboard","javascript","css","html","xml",
-                                                                                 "tidyverse","rvest","tidyquant","quantmod","shinyjs") %>% sample(., 1),
-                                                                    width = "100%",
-                                                                    choices = c("r","shiny","shinydashboard","javascript","css","html","xml",
-                                                                                "tidyverse","rvest","tidyquant","quantmod","shinyjs"))
-                                                 ),
-                                                 div(class = 'so-box',
-                                                     uiOutput(session$ns("so_questions"))),
-                                                 div(style = 'padding-top: 5px;',
-                                                 uiOutput(session$ns("so_header_type")))
-                                        )))
+                                                     htmlOutput(session$ns("header2")), class = 'header-underline'),
+                                                 div(style = 'padding: 0 15px 0 15px;',
+                                                     uiOutput(session$ns("gnews2"))))
+                          ))
                         ),
                         
                         div(style = 'padding-top: 15px;', #adds 15px padding for the stock ticker row
@@ -99,44 +88,56 @@ home <- function(input, output, session, login_info) {
           )),
           column(4, div(style = 'padding-right: 15px;', # Only need padding-right bc the box to the left has padding already
                         fluidRow(
-                                 column(6, div(style = 'padding-right: 7px;',
-                                               fluidRow(class = 'shuttle-box-1', style = 'padding-bottom: 20px;',
-                                                        div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
-                                                            htmlOutput(session$ns("header1")), class = 'header-underline'),
-                                                        
-                                                        div(class='home-selectize-input',
-                                                                 selectizeInput(
-                                                                   inputId = session$ns("control_gnews1"),
-                                                                   label = NULL,
-                                                                   selected = "topnews",
-                                                                   width = "100%",
-                                                                   choices = c("Top News" = "topnews",
-                                                                               "Sports" = "sports",
-                                                                               "Technology" = "technology",
-                                                                               "Business" = "business",
-                                                                               "Science" = "science",
-                                                                               "Health" = "health")
-                                                                 )
-                                                        ),
-                                                        div(class = 'topnews-box',
-                                                            uiOutput(session$ns("gnews1")))))
-                                 ),
-                                 column(6,
-                                        div(style = 'padding-left: 8px;',
-                                            fluidRow(class = 'shuttle-box-1',
-                                                     div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
-                                                         htmlOutput(session$ns("header2")), class = 'header-underline'),
-                                                     div(style = 'padding: 0 15px 0 15px;',
-                                                         uiOutput(session$ns("gnews2")))),
-                                            div(style = 'padding-top: 15px;',
-                                            fluidRow(class = 'shuttle-box-1',
-                                                     div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
-                                                         htmlOutput(session$ns("dsfeed_header")), class = 'header-underline'),
-                                                     div(style = 'padding: 10px 15px 0 15px;',
-                                                         uiOutput(session$ns("dsfeeds")))
-                                                     ))
-
-                                        ))
+                          column(6, div(style = 'padding-right: 7px;',
+                                        fluidRow(class = 'shuttle-box-1', style = 'padding-bottom: 20px;',
+                                                 div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                     htmlOutput(session$ns("header1")), class = 'header-underline'),
+                                                 
+                                                 div(class='home-selectize-input',
+                                                     selectizeInput(
+                                                       inputId = session$ns("control_gnews1"),
+                                                       label = NULL,
+                                                       selected = "topnews",
+                                                       width = "100%",
+                                                       choices = c("Top News" = "topnews",
+                                                                   "Sports" = "sports",
+                                                                   "Technology" = "technology",
+                                                                   "Business" = "business",
+                                                                   "Science" = "science",
+                                                                   "Health" = "health")
+                                                     )
+                                                 ),
+                                                 div(class = 'topnews-box',
+                                                     uiOutput(session$ns("gnews1")))))
+                          ),
+                          column(6,
+                                 div(style = 'padding-left: 8px;',
+                                     fluidRow(class = 'shuttle-box-1',
+                                              div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                  htmlOutput(session$ns("so_header")), class = 'header-underline'),
+                                              div(class='home-selectize-input',
+                                                  selectizeInput(inputId = session$ns("so_search"), 
+                                                                 label = NULL,
+                                                                 selected = c("r","shiny","shinydashboard","javascript","css","html","xml",
+                                                                              "tidyverse","rvest","tidyquant","quantmod","shinyjs") %>% sample(., 1),
+                                                                 width = "100%",
+                                                                 choices = c("r","shiny","shinydashboard","javascript","css","html","xml",
+                                                                             "tidyverse","rvest","tidyquant","quantmod","shinyjs"))
+                                              ),
+                                              div(class = 'so-box',
+                                                  uiOutput(session$ns("so_questions"))),
+                                              div(style = 'padding-top: 5px;',
+                                                  uiOutput(session$ns("so_header_type")))
+                                     ),
+                                     div(style = 'padding-top: 15px;',
+                                         fluidRow(class = 'shuttle-box-1',
+                                                  div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                      htmlOutput(session$ns("dsfeed_header")), class = 'header-underline'),
+                                                  div(style = 'padding: 10px 15px 0 15px;',
+                                                      uiOutput(session$ns("dsfeeds")))
+                                         ))
+                                     
+                                 ))
                         )
           ))
         )))
