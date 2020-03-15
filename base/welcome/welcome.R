@@ -77,13 +77,13 @@ welcome <- function(input, output, session) {
 
   #Server Section----
   
-  output$about <- renderUI({includeMarkdown(paste0("base/home/about.md"))})
+  output$about <- renderUI({includeMarkdown(paste0("base/welcome/about.md"))})
   
-  output$sds <- renderUI({includeMarkdown(paste0("base/home/sds.md"))})
+  output$sds <- renderUI({includeMarkdown(paste0("base/welcome/sds.md"))})
   
-  output$start <- renderUI({includeMarkdown(paste0("base/home/start.md"))})
+  output$start <- renderUI({includeMarkdown(paste0("base/welcome/start.md"))})
   
-  output$links <- renderUI({includeMarkdown(paste0("base/home/links.md"))})
+  output$links <- renderUI({includeMarkdown(paste0("base/welcome/links.md"))})
   
   
   output$welcome <- renderUI({includeMarkdown(paste0("base/welcome/welcome.md"))})
