@@ -9,7 +9,7 @@ library(tidyverse)
 library(rvest)
 
 # Loading all the necessary source files
-source("login.R")
+source("base/login/login.R")
 source("base/home/home.R")
 source("base/home/feeds.R")
 source("base/welcome/welcome.R")
