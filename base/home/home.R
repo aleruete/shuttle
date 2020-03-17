@@ -108,7 +108,7 @@ home <- function(input, output, session, login_info) {
                                                                    "Health" = "health")
                                                      )
                                                  ),
-                                                 div(class = 'topnews-box',
+                                                 div(class = 'gnews1-box',
                                                      uiOutput(session$ns("gnews1")))))
                           ),
                           column(6,
