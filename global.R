@@ -15,7 +15,6 @@ source("base/home/feeds.R")
 source("base/welcome/welcome.R")
 # Plots
 source("base/gemini/plots/geyser1.R")
-source("base/gemini/plots/ggplot1.R")
 source("base/gemini/plots/geyser2.R")
 # DataTable
 source("base/gemini/datatable/datatable1.R")
@@ -23,9 +22,6 @@ source("base/gemini/datatable/datatable2.R")
 # TimeSeries
 source("base/gemini/timeseries/timeseries1.R")
 source("base/gemini/timeseries/timeseries2.R")
-# Weather
-source("base/gemini/weather/weather1.R")
-source("base/gemini/weather/weather3.R")
 # Webscrape
 source("base/gemini/webscrape/webscrape1.R")
 # Apollo

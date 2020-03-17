@@ -21,24 +21,15 @@ server<- function(input, output, session) {
   # Gemini Modules ----
   
   callModule(geyser1, "geyser1")
-  
-  callModule(ggplot1, "ggplot1")
-  
-  callModule(weather1, "weather1")
-  
-  callModule(datatable1, "datatable1")
-  
-  callModule(timeseries1, "timeseries1")
-  
-  callModule(webscrape1, "webscrape1")
-  
   callModule(geyser2, "geyser2")
   
+  callModule(datatable1, "datatable1")
   callModule(datatable2, "datatable2")
   
+  callModule(timeseries1, "timeseries1")
   callModule(timeseries2, "timeseries2")
   
-  callModule(weather3, "weather3")
+  callModule(webscrape1, "webscrape1")
   
   # Apollo Modules ----
   # Call your modules here.
@@ -96,8 +87,7 @@ server<- function(input, output, session) {
                   menuItem("Home", tabName = "home_tabname", icon = icon("home"), selected = T),
                   menuItem("Plots", icon = icon("chart-bar"),
                            menuSubItem("Geyser 1", tabName = "geyser1_tabname"),
-                           menuSubItem("Geyser 2", tabName = "geyser2_tabname"),
-                           menuSubItem("ggplot2 1", tabName = "ggplot1_tabname")
+                           menuSubItem("Geyser 2", tabName = "geyser2_tabname")
                   ),
                   menuItem("DataTable", icon = icon("table"),
                            menuSubItem("DataTable 1", tabName = "datatable1_tabname"),
@@ -106,10 +96,6 @@ server<- function(input, output, session) {
                   menuItem("TimeSeries", icon = icon("chart-line"),
                            menuSubItem("TimeSeries 1", tabName = "timeseries1_tabname"),
                            menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname")
-                  ),
-                  menuItem("Weather", icon = icon("sun"),
-                           menuSubItem("Weather 1", tabName = "weather1_tabname"),
-                           menuSubItem("Weather 3", tabName = "weather3_tabname")
                   ),
                   menuItem("WebScrape", icon = icon("binoculars"),
                            menuSubItem("WebScrape 1", tabName = "webscrape1_tabname")

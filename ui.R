@@ -30,15 +30,12 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("welcome_tabname", welcomeUI("welcome")),
                         # Gemini
                         tabItem("geyser1_tabname", geyser1UI("geyser1")),
-                        tabItem("ggplot1_tabname", ggplot1UI("ggplot1")),
-                        tabItem("weather1_tabname", weather1UI("weather1")),
-                        tabItem("datatable1_tabname", datatable1UI("datatable1")),
-                        tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
-                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
                         tabItem("geyser2_tabname", geyser2UI("geyser2")),
+                        tabItem("datatable1_tabname", datatable1UI("datatable1")),
                         tabItem("datatable2_tabname", datatable2UI("datatable2")),
+                        tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
                         tabItem("timeseries2_tabname", timeseries2UI("timeseries2")),
-                        tabItem("weather3_tabname", weather3UI("weather3"))
+                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1"))
                         # Apollo 
                         # Reference your UI here.
                         
