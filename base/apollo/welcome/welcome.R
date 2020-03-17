@@ -55,19 +55,24 @@ welcome <- function(input, output, session) {
                               column(12, htmlOutput(session$ns("welcome")))
                             )),
                    tabPanel(class = "welcome-tab",
-                            title = "Lesson 1", value = "lesson1", icon = icon("plus"),
+                            title = "Plots", value = "plots", icon = icon("plus"),
                             fluidRow(
-                              column(12, htmlOutput(session$ns("lesson1")))
+                              column(12, htmlOutput(session$ns("plots")))
                             )),
                    tabPanel(class = "welcome-tab",
-                            title = "Lesson 2", value = "lesson2", icon = icon("plus"),
+                            title = "DataTable", value = "datatable", icon = icon("plus"),
                             fluidRow(
-                              column(12, htmlOutput(session$ns("lesson2")))
+                              column(12, htmlOutput(session$ns("datatable")))
                             )),
                    tabPanel(class = "welcome-tab",
-                            title = "Lesson 3", value = "lesson3", icon = icon("plus"),
+                            title = "TimeSeries", value = "timeseries", icon = icon("plus"),
                             fluidRow(
-                              column(12, htmlOutput(session$ns("lesson3")))
+                              column(12, htmlOutput(session$ns("timeseries")))
+                            )),
+                   tabPanel(class = "welcome-tab",
+                            title = "WebScrape", value = "webscrape", icon = icon("plus"),
+                            fluidRow(
+                              column(12, htmlOutput(session$ns("webscrape")))
                             ))
                  )))
       )
@@ -77,21 +82,23 @@ welcome <- function(input, output, session) {
 
   #Server Section----
   
-  output$about <- renderUI({includeMarkdown(paste0("base/welcome/about.md"))})
+  output$about <- renderUI({includeMarkdown(paste0("base/apollo/welcome/about.md"))})
   
-  output$sds <- renderUI({includeMarkdown(paste0("base/welcome/sds.md"))})
+  output$sds <- renderUI({includeMarkdown(paste0("base/apollo/welcome/sds.md"))})
   
-  output$start <- renderUI({includeMarkdown(paste0("base/welcome/start.md"))})
+  output$start <- renderUI({includeMarkdown(paste0("base/apollo/welcome/start.md"))})
   
-  output$links <- renderUI({includeMarkdown(paste0("base/welcome/links.md"))})
+  output$links <- renderUI({includeMarkdown(paste0("base/apollo/welcome/links.md"))})
   
   
-  output$welcome <- renderUI({includeMarkdown(paste0("base/welcome/welcome.md"))})
+  output$welcome <- renderUI({includeMarkdown(paste0("base/apollo/welcome/welcome.md"))})
   
-  output$lesson1 <- renderUI({includeMarkdown(paste0("base/welcome/lesson1.md"))})
+  output$plots <- renderUI({includeMarkdown(paste0("base/apollo/welcome/plots.md"))})
   
-  output$lesson2 <- renderUI({includeMarkdown(paste0("base/welcome/lesson2.md"))})
+  output$datatable <- renderUI({includeMarkdown(paste0("base/apollo/welcome/datatable.md"))})
   
-  output$lesson3 <- renderUI({includeMarkdown(paste0("base/welcome/lesson3.md"))})
+  output$timeseries <- renderUI({includeMarkdown(paste0("base/apollo/welcome/timeseries.md"))})
+  
+  output$webscrape <- renderUI({includeMarkdown(paste0("base/apollo/welcome/webscrape.md"))})
   
 }
