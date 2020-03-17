@@ -12,7 +12,6 @@ library(rvest)
 source("base/login/login.R")
 source("base/home/home.R")
 source("base/home/feeds.R")
-source("base/welcome/welcome.R")
 # Plots
 source("base/gemini/plots/geyser1.R")
 source("base/gemini/plots/geyser2.R")
@@ -24,7 +23,9 @@ source("base/gemini/timeseries/timeseries1.R")
 source("base/gemini/timeseries/timeseries2.R")
 # Webscrape
 source("base/gemini/webscrape/webscrape1.R")
+source("base/gemini/webscrape/webscrape2.R")
 # Apollo
+source("base/apollo/welcome/welcome.R")
 # Source your files here.
 
 # Sets the time zone

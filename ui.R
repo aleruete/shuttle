@@ -35,7 +35,8 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("datatable2_tabname", datatable2UI("datatable2")),
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
                         tabItem("timeseries2_tabname", timeseries2UI("timeseries2")),
-                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1"))
+                        tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
+                        tabItem("webscrape2_tabname", webscrape2UI("webscrape2"))
                         # Apollo 
                         # Reference your UI here.
                         

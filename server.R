@@ -11,11 +11,9 @@ server<- function(input, output, session) {
   
   session$onSessionEnded(stopApp)
   
-  # Home Base ----
+  # Base ----
   login_info <- callModule(login, "login")
-  
   callModule(home, "home", login_info)
-  
   callModule(welcome, "welcome")
   
   # Gemini Modules ----
@@ -30,6 +28,7 @@ server<- function(input, output, session) {
   callModule(timeseries2, "timeseries2")
   
   callModule(webscrape1, "webscrape1")
+  callModule(webscrape2, "webscrape2")
   
   # Apollo Modules ----
   # Call your modules here.
@@ -98,7 +97,8 @@ server<- function(input, output, session) {
                            menuSubItem("TimeSeries 2", tabName = "timeseries2_tabname")
                   ),
                   menuItem("WebScrape", icon = icon("binoculars"),
-                           menuSubItem("WebScrape 1", tabName = "webscrape1_tabname")
+                           menuSubItem("WebScrape 1", tabName = "webscrape1_tabname"),
+                           menuSubItem("WebScrape 2", tabName = "webscrape2_tabname")
                   )
       )
     }
