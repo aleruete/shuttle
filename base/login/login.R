@@ -135,6 +135,7 @@ login <- function(input, output, session) {
         gsub("thru.*","",.) %>%
         gsub("-.*","",.) %>%
         trimws() %>%
+        .[! . %in% c("02101","87500")] %>%
         sample(.,1) %>%
         paste0('http://www.geonames.org/postalcode-search.html?q=',.,'&country=US') %>%
         read_html() %>%
