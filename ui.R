@@ -1,7 +1,16 @@
 
 ui <- dashboardPage(title = "Shuttle",
-                    header = dashboardHeader(titleWidth = 210, title = tags$a(id="ichooseyou", href = "", class = "action-button shiny-bound-input", tags$img(src='logo.png', width='160', height='38'))
-                    ),
+                    header = dashboardHeader(titleWidth = 210, title = tags$a(id="ichooseyou", href = "", class = "action-button shiny-bound-input", tags$img(src='logo.png', width='160', height='38')),
+                                             dropdownMenu(
+                                               type = "notifications",
+                                               headerText = strong("Quick Help"),
+                                               icon = icon("question-circle"),
+                                               badgeStatus = NULL,
+                                               notificationItem(
+                                                 text = "Click the YouTube icon on the left to get an introduction!",
+                                                 icon = icon("fab fa-youtube", class = 'youtube-color'))
+                                             )
+                                             ),
                     
                     dashboardSidebar(width = 210,
                                      tags$head(
@@ -10,7 +19,6 @@ ui <- dashboardPage(title = "Shuttle",
                                      # Settings for the User Panel ----
                                      div(style = 'border-bottom: 4px double #f2f2f2; border-top: 1px solid #f2f2f2;',
                                          div(class = 'userpanel', uiOutput("userpanel"))
-                                         # div(class = 'links', uiOutput("links"))
                                      ),
                                      
                                      # Settings for the Mission Selection ----
@@ -45,8 +53,8 @@ ui <- dashboardPage(title = "Shuttle",
                         # Shuttle links in header ----
                         tags$script(
                           HTML(paste0('
-    $(document).ready(function() {
-     $("header").find("nav").append(\'<span class="links">'
+            $(document).ready(function() {
+              $("header").find("nav").append(\'<span class="links">'
                                       ,'<a href="https://www.youtube.com/channel/UCHIge2lulmLXhEhWpajOT3Q" target="_blank>"','<i class="fab fa-youtube"></i></a>'
                                       ,'<a href="https://www.instagram.com/shuttleds/" target="_blank>"','<i class="fab fa-instagram"></i></a>'
                                       ,'<a href="https://twitter.com/shuttledatasci/" target="_blank>"','<i class="fab fa-twitter"></i></a>'
