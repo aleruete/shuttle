@@ -40,6 +40,19 @@
   background-color: #385898;
 }
 
+.skin-blue .main-header .navbar .nav>li>a {
+  font-size: 16px;
+}
+
+.navbar-nav > .messages-menu > .dropdown-menu, .navbar-nav > .notifications-menu > .dropdown-menu, .navbar-nav > .tasks-menu > .dropdown-menu {
+  width: 300px;
+  padding: 0;
+  margin: 10px 20px;
+  top: 100%;
+  background-color: #fefefe;
+  box-shadow: 5px 5px 5px darkgrey;
+}
+
 
 /* Sidebar Settings */
 .userpanel{
@@ -47,13 +60,6 @@
   margin: auto;
   width: 90%;
 }
-/*
-.links{
-  font-size: 20px;
-  text-align: left;
-  margin: auto;
-  width: 90%;
-}*/
 
 .links {
   font-size: 20px;
@@ -70,6 +76,15 @@
 
 .links a:hover{
   color: #FE01B2;
+}
+
+.help {
+  font-size: 20px;
+  color: #f2f2f2;
+  float: right;
+  padding: 0 20px;
+  margin-top: 11px;
+  letter-spacing: 10px;
 }
 
 .skin-blue .main-sidebar .sidebar .sidebar-menu .active a{
@@ -141,6 +156,7 @@
   border-radius: 25px;
   padding: 15px 20px 0 20px;
   border: 1px solid #dddfe2;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
 }
 
 .so-box{
