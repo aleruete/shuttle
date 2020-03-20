@@ -11,7 +11,6 @@ home <- function(input, output, session, login_info) {
   output$home_ui <- renderUI({
     
     tagList(
-      
       div(
         fluidRow(
           column(8, div(style = 'padding-left: 15px; padding-right: 15px;',
@@ -20,7 +19,8 @@ home <- function(input, output, session, login_info) {
                                  fluidRow(
                                    column(12, style = 'padding-bottom: 5px;',
                                           class = 'shuttle-box-1',
-                                          htmlOutput(session$ns("weather")))),
+                                          htmlOutput(session$ns("weather"))
+                                   )),
                                  div(style = 'padding-top: 15px;',
                                      fluidRow(
                                        column(12, class = 'shuttle-box-1',
@@ -34,6 +34,7 @@ home <- function(input, output, session, login_info) {
                                                        fluidRow(
                                                          column(6,
                                                                 actionButton(session$ns("random_ticker"), label = "Random Stock", icon = icon("dice"))
+                                                                
                                                          ),
                                                          column(6, style = 'margin: 0 auto;',
                                                                 selectizeInput(inputId = session$ns("date_preset"), 
@@ -78,7 +79,8 @@ home <- function(input, output, session, login_info) {
                                                  div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
                                                      htmlOutput(session$ns("header2")), class = 'header-underline'),
                                                  div(style = 'padding: 0 15px 0 15px;',
-                                                     uiOutput(session$ns("gnews2"))))
+                                                     uiOutput(session$ns("gnews2"))
+                                                 ))
                           ))
                         ),
                         
@@ -105,7 +107,8 @@ home <- function(input, output, session, login_info) {
                                                                    "Technology" = "technology",
                                                                    "Business" = "business",
                                                                    "Science" = "science",
-                                                                   "Health" = "health")
+                                                                   "Health" = "health",
+                                                                   "Entertainment" = "entertainment")
                                                      )
                                                  ),
                                                  div(class = 'gnews1-box',
@@ -135,7 +138,8 @@ home <- function(input, output, session, login_info) {
                                                   div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
                                                       htmlOutput(session$ns("dsfeed_header")), class = 'header-underline'),
                                                   div(style = 'padding: 10px 15px 0 15px;',
-                                                      uiOutput(session$ns("dsfeeds")))
+                                                      uiOutput(session$ns("dsfeeds"))
+                                                  )
                                          ))
                                      
                                  ))
@@ -385,7 +389,7 @@ home <- function(input, output, session, login_info) {
   
   observe({
     refresh()
-    feed <- c("reddit","kdnuggets","kaggle","R_MLlist") %>% sample(.,1)
+    feed <- c("reddit","kdnuggets","kaggle","R_MLlist","rbloggers") %>% sample(.,1)
     
     if(feed == "reddit") {
       output$dsfeed_header <- renderText('<a href="https://www.reddit.com/r/datascience/" target="_blank">r/DataScience</a>')
@@ -409,6 +413,11 @@ home <- function(input, output, session, login_info) {
       tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
         clean_titles_links() %>%
         sample_n(.,4)
+    } else if (feed == "rbloggers") {
+      output$dsfeed_header <- renderText('<a href="https://www.r-bloggers.com/" target="_blank">R-bloggers</a>')
+      
+      tb <- googleRSS("https://feeds.feedburner.com/RBloggers") %>%
+        clean_titles_links()
     }
 
     if(feed == "R_MLlist") {
