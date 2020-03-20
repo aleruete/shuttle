@@ -53,6 +53,16 @@
   box-shadow: 5px 5px 5px darkgrey;
 }
 
+.navbar-nav > .notifications-menu > .dropdown-menu > li .menu > li > a {
+    color: #000000;
+    overflow: hidden;
+    white-space: normal;
+}
+
+.youtube-color {
+  color: #c4302b;
+}
+
 
 /* Sidebar Settings */
 .userpanel{
