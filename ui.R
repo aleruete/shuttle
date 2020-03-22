@@ -10,7 +10,7 @@ ui <- dashboardPage(title = "Shuttle",
                                                  text = "Click the YouTube icon on the left to get an introduction!",
                                                  icon = icon("fab fa-youtube", class = 'youtube-color'))
                                              )
-                                             ),
+                    ),
                     
                     dashboardSidebar(width = 210,
                                      tags$head(
@@ -35,7 +35,6 @@ ui <- dashboardPage(title = "Shuttle",
                       loginUI("login"),
                       tabItems(
                         tabItem("home_tabname", homeUI("home")),
-                        tabItem("welcome_tabname", welcomeUI("welcome")),
                         # Gemini
                         tabItem("geyser1_tabname", geyser1UI("geyser1")),
                         tabItem("geyser2_tabname", geyser2UI("geyser2")),
@@ -44,8 +43,9 @@ ui <- dashboardPage(title = "Shuttle",
                         tabItem("timeseries1_tabname", timeseries1UI("timeseries1")),
                         tabItem("timeseries2_tabname", timeseries2UI("timeseries2")),
                         tabItem("webscrape1_tabname", webscrape1UI("webscrape1")),
-                        tabItem("webscrape2_tabname", webscrape2UI("webscrape2"))
-                        # Apollo 
+                        tabItem("webscrape2_tabname", webscrape2UI("webscrape2")),
+                        # Apollo
+                        tabItem("yourtab_tabname", yourtabUI("yourtab"))
                         # Reference your UI here.
                         
                       ),

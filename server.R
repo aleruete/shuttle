@@ -14,7 +14,6 @@ server<- function(input, output, session) {
   # Base ----
   login_info <- callModule(login, "login")
   callModule(home, "home", login_info)
-  callModule(welcome, "welcome")
   
   # Gemini Modules ----
   
@@ -31,6 +30,7 @@ server<- function(input, output, session) {
   callModule(webscrape2, "webscrape2")
   
   # Apollo Modules ----
+  callModule(yourtab, "yourtab")
   # Call your modules here.
   
   # UserPanel Information----
@@ -105,10 +105,9 @@ server<- function(input, output, session) {
     # Apollo
     else if (input$mission %in% c("Apollo")) {
       sidebarMenu(id = "tabs",
-                  menuItem("Welcome to Apollo", tabName = "welcome_tabname", selected = T),
                   menuItem("Home", tabName = "home_tabname", icon = icon("home")),
                   # Place your menu items here.
-                  menuItem("Your Tab", tabName = " ", icon = icon("user-astronaut"))
+                  menuItem("Your Tab", tabName = "yourtab_tabname", icon = icon("user-astronaut"), selected = T)
                   
       )  
     }
