@@ -228,6 +228,40 @@
   margin-bottom: 0; /* tabBox has a built in margin */
 }
 
+/* Gemini Settings */
+.shuttle-box-2{
+  background-color: #FFF;
+  border-radius: 25px;
+  margin-bottom: 20px;
+  padding: 0 20px 5px 20px;
+  border: 1px solid #dddfe2;
+  box-shadow: 0 1px 6px 0 rgba(32, 33, 36, .28);
+}
+
+.gemini-font{
+  font-size: 16px;
+}
+
+.gemini-h1 {
+  color: #385898;
+  display: block;
+  font-size: 36px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.gemini-h2 {
+  color: #385898;
+  display: block;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
 
 /* Project App Settings */
 .dygraph-legend {
