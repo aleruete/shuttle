@@ -37,11 +37,11 @@ geyser2 <- function(input, output, session) {
               hr(),
               
               h4("Plot Controls"),
-              sliderInput(session$ns("bins"),
-                          "Number of bins:",
-                          min = 1,
-                          max = 50,
-                          value = 30)
+              selectInput(session$ns("bins"), label = "Number of bins:",
+                          choices = c(10, 20, 50), selected = 50),
+              
+              sliderInput(session$ns("bandwidth"), label = "Bandwidth adjustment:",
+                          min = 0.2, max = 2, value = 1, step = 0.2)
           ),
           
           # Show a plot of the generated distribution
@@ -57,13 +57,14 @@ geyser2 <- function(input, output, session) {
   
   output$distPlot <- renderPlot({
     
-    # generate bins based on input$bins from the UI Section
-    x    <- faithful$waiting
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
     # draw the histogram with the specified number of bins
-    hist(x, probability = TRUE, breaks = bins, col = 'darkgray', border = 'white',
+    hist(faithful$waiting, probability = TRUE, breaks = as.numeric(input$bins), col = 'darkgray', border = 'white',
          xlab = "Waiting Time (minutes)", main = "Old Faithful Geyser Eruption")
+    
+    # draw a density line
+    dens <- density(faithful$waiting, adjust = input$bandwidth)
+    lines(dens, col = "blue")
+    
   })
   
   output$description <- renderText(

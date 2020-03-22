@@ -13,7 +13,10 @@ geyser1 <- function(input, output, session) {
   output$geyser1_ui <- renderUI({
     
     tagList(
-      h2("Geyser: Step 1"),
+      fluidRow(
+        column(6,
+               htmlOutput(session$ns("geyser1_header"), class = 'shuttle-box-2'))
+      ),
       
       div(
         fluidRow(
@@ -51,5 +54,6 @@ geyser1 <- function(input, output, session) {
     
   })
   
-  
+  # Project description document
+  output$geyser1_header <- renderUI({includeMarkdown(paste0("base/gemini/plots/geyser1.md"))})
 }

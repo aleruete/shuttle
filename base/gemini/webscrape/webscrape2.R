@@ -13,12 +13,14 @@ webscrape2 <- function(input, output, session) {
   output$webscrape2_ui <- renderUI({
     
     tagList(
-      h2("WebScrape: Step 2"),
+      fluidRow(
+        column(6,
+               htmlOutput(session$ns("webscrape2_header"), class = 'shuttle-box-2'))
+      ),
       
       div(
         fluidRow(
-          
-          box(width = 10, title = "Topics Scraped from CNN World Markets/Asia",
+          box(width = 10, title = "Latest International News Headlines from CNN World Markets/Asia",
               DT::dataTableOutput(session$ns("webscrape_table"))
           )
         )
@@ -39,7 +41,7 @@ webscrape2 <- function(input, output, session) {
         html_text() %>%
         trimws(),
       item_link = html_nodes(url, '#section_latestnews a') %>% # scraping the link associated with the li text
-        html_attr('href') %>%
+        html_attr('href') %>% #href is the attribute inside of the node that contains the hyperlink
         trimws() %>%
         .[-c(1,length(.))]
     )
@@ -49,7 +51,10 @@ webscrape2 <- function(input, output, session) {
   output$webscrape_table <- DT::renderDataTable({
     req(webscrape_data())
     
-    webscrape_data()
+    webscrape_data() %>%
+      DT::datatable(.)
   })
   
+  # Project description document
+  output$webscrape2_header <- renderUI({includeMarkdown(paste0("base/gemini/webscrape/webscrape2.md"))})
 }

@@ -13,15 +13,20 @@ datatable2 <- function(input, output, session) {
   output$datatable2_ui <- renderUI({
     
     tagList(
-      h2("DataTable: Step 2"),
+      fluidRow(
+        column(6,
+               htmlOutput(session$ns("datatable2_header"), class = 'shuttle-box-2'))
+      ),
       
       div(
         fluidRow(
-          column(12,
-                 DT::dataTableOutput(session$ns("standard_table"))
+          box(
+            DT::dataTableOutput(session$ns("standard_table"))
           ),
-          column(6,
-                 verbatimTextOutput(session$ns("cell_info"))
+          box(width = 2,
+            h4("Cell Clicked Info"),
+            tags$i("Click on any cell in the datatable."),
+            verbatimTextOutput(session$ns("cell_info"))
           )
         )
       )
@@ -31,26 +36,19 @@ datatable2 <- function(input, output, session) {
   
   #Server Section----
   
-  standard_data <- reactive({
-    
-    iris
-    
-  })
-  
   output$standard_table <- DT::renderDataTable({
-    req(standard_data())
                 
-    standard_data() %>%
+    iris %>%
       DT::datatable(.,
                 class = 'cell-border stripe',
                 selection = 'none',
                 rownames=FALSE)
-    
   })
   
   output$cell_info <- renderPrint({
     input$standard_table_cell_clicked
   })
   
-  
+  # Project description document
+  output$datatable2_header <- renderUI({includeMarkdown(paste0("base/gemini/datatable/datatable2.md"))})
 }

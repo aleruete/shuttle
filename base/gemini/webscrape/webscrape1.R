@@ -13,12 +13,14 @@ webscrape1 <- function(input, output, session) {
   output$webscrape1_ui <- renderUI({
     
     tagList(
-      h2("WebScrape: Step 1"),
+      fluidRow(
+        column(6,
+               htmlOutput(session$ns("webscrape1_header"), class = 'shuttle-box-2'))
+      ),
       
       div(
         fluidRow(
-          
-          box(width = 10, title = "Topics Scraped from CNN World Markets/Asia",
+          box(title = "Latest International News Headlines from CNN World Markets/Asia",
               DT::dataTableOutput(session$ns("webscrape_table"))
           )
         )
@@ -45,7 +47,10 @@ webscrape1 <- function(input, output, session) {
   output$webscrape_table <- DT::renderDataTable({
     req(webscrape_data())
     
-    webscrape_data()
+    webscrape_data() %>%
+      DT::datatable(.)
   })
   
+  # Project description document
+  output$webscrape1_header <- renderUI({includeMarkdown(paste0("base/gemini/webscrape/webscrape1.md"))})
 }
