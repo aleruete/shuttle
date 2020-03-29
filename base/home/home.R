@@ -200,8 +200,7 @@ home <- function(input, output, session, login_info) {
   observe({
     req(input$so_search>0 & url_tag()>0)
 
-    tb <- soRSS(paste0('https://stackoverflow.com/feeds/tag?tagnames=',url_tag(),'&sort=',url_sort())) %>%
-      slice(-1)
+    tb <- atomFeed(paste0('https://stackoverflow.com/feeds/tag?tagnames=',url_tag(),'&sort=',url_sort()))
     
     url_count(length(tb$item_title))
     
@@ -331,7 +330,7 @@ home <- function(input, output, session, login_info) {
   observe({
     refresh() #refreshes the extract
     
-    tb <- ExtractRSS(paste0("https://news.google.com/rss",gfeed1$choice))
+    tb <- xmlFeed(paste0("https://news.google.com/rss",gfeed1$choice))
 
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
@@ -358,7 +357,7 @@ home <- function(input, output, session, login_info) {
   
   observe({
 
-    tb <- ExtractRSS(paste0("https://news.google.com/rss",gfeed2$choice))
+    tb <- xmlFeed(paste0("https://news.google.com/rss",gfeed2$choice))
 
     headline <- gsub(" -.*","",tb$item_title)
     outlet <- gsub(".*- ","",tb$item_title)
@@ -390,28 +389,24 @@ home <- function(input, output, session, login_info) {
     
     if(feed == "reddit") {
       output$dsfeed_header <- renderText('<a href="https://www.reddit.com/r/datascience/" target="_blank">r/DataScience</a>')
-        
-      tb <- redditRSS('https://www.reddit.com/r/datascience/.rss') %>%
-        slice(-1)
+      tb <- atomFeed('https://www.reddit.com/r/datascience/.rss')
+      
     } else if (feed == "kdnuggets") {
       output$dsfeed_header <- renderText('<a href="https://www.kdnuggets.com/news/index.html" target="_blank">KDnuggets</a>')
+      tb <- xmlFeed("https://www.kdnuggets.com/feed")
       
-      tb <- kdRSS("https://www.kdnuggets.com/feed") %>%
-        slice(-1)
     } else if(feed == "kaggle") {
       output$dsfeed_header <- renderText('<a href="https://medium.com/kaggle-blog" target="_blank">Kaggle Blog</a>')
+      tb <- xmlFeed("https://medium.com/feed/kaggle-blog")
       
-      tb <- ExtractRSS("https://medium.com/feed/kaggle-blog")
     } else if(feed == "R_MLlist") {
       output$dsfeed_header <- renderText('<a href="https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24" target="_blank">R ML Packages</a>')
-      
       tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
-        # clean_titles_links() %>%
         sample_n(.,4)
+      
     } else if (feed == "rbloggers") {
       output$dsfeed_header <- renderText('<a href="https://www.r-bloggers.com/" target="_blank">R-bloggers</a>')
-      
-      tb <- ExtractRSS("https://feeds.feedburner.com/RBloggers")
+      tb <- xmlFeed("https://feeds.feedburner.com/RBloggers")
     }
 
     if(feed == "R_MLlist") {
