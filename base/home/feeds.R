@@ -1,85 +1,96 @@
 require(xml2)
-require(RCurl)
-require(lubridate)
+require(XML)
+require(httr)
+# require(RCurl)
+# require(lubridate)
 
 safe_xml_find_first <- safely(xml_find_first)
 safe_xml_find_all <- safely(xml_find_all)
+safe_GET <- safely(GET)
 
-safe_run <- function(res) {
-  if (is.null(res$error)) {
-    ret <- res$result
-  } else {
-    ret <- read_xml("<p></p>")
-  }
-  return(ret)
+GET_result <- function(x) {
+  doc = safe_GET(x)
+  res = doc$result
+  res
 }
 
-safe_xml_feed <- function(url){
+GET_content <- function(res) {
+  res$content
+}
+
+GET_type <- function(res) {
+  res$headers$`content-type`
+}
+
+
+type_check <- function(res) {
+GET_type(res) %>%
+  case_when(
+    grepl(x = content_type, pattern = "application/xml") ~ "xml_feed",
+    grepl(x = content_type, pattern = "text/xml") ~ "xml_feed",
+    grepl(x = content_type, pattern = "application/rss\\+xml") ~ "html_feed",
+    grepl(x = content_type, pattern = "application/atom\\+xml") ~ "html_feed",
+    TRUE ~ "read_html"
+  )
+}
+
+
+clean_tibble <- function(tb) {
+  tb %>%
+    lapply(., function(x) gsub("[^\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]", "", x)) %>%
+    lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
+    lapply(., function(x) gsub("\u00E2", "'", x)) %>%
+    as_tibble()
+}
+
+
+xml_feed <- function(url){
   doc = NULL
   while(is.null(doc)) {
-    if(url.exists(url)){
-      doc <- try(read_xml(url))}
+    if(!http_error(url)){
+      doc <- try(
+        GET_result(url) %>%
+          GET_content() %>%
+          read_xml()
+      )}
   }
   return(doc)
 }
 
-formats <- c("a d b Y H:M:S z", "a, d b Y H:M z",
-             "Y-m-d H:M:S z", "d b Y H:M:S",
-             "d b Y H:M:S z", "a b d H:M:S z Y",
-             "a b dH:M:S Y")
 
-googleRSS <- function(feed){
+ExtractRSS <- function(feed){
   
-  doc <- safe_xml_feed(feed)
+  doc <- xml_feed(feed)
   
   channel <- xml_find_all(doc, "channel")
   
   site <- xml_find_all(channel, "item")
   
   tibble(
-    feed_link = safe_xml_find_first(channel, "link") %>%
-      safe_run() %>%
-      xml_text(),
-    feed_description = safe_xml_find_first(channel, "description") %>%
-      safe_run() %>%
-      xml_text(),
-    feed_last_updated = safe_xml_find_first(channel, "lastBuildDate") %>%
-      safe_run() %>%
-      xml_text() %>%
-      parse_date_time(orders = formats),
-    feed_language = safe_xml_find_first(channel, "language") %>%
-      safe_run() %>%
-      xml_text(),
     item_title = safe_xml_find_first(site, "title") %>%
-      safe_run() %>%
-      xml_text(),
-    item_date_published = safe_xml_find_first(site, "pubDate") %>%
-      safe_run() %>%
-      xml_text() %>%
-      parse_date_time(orders = formats),
-    item_description = safe_xml_find_first(site, "description") %>%
-      safe_run() %>%
+      .$result %>%
       xml_text(),
     item_link = safe_xml_find_first(site, "link") %>%
-      safe_run() %>%
+      .$result %>%
       xml_text()
-  )
+  ) %>%
+    clean_tibble()
 }
 
 
-safe_html_feed <- function(url){
+html_feed <- function(url){
   doc = NULL
   while(is.null(doc)) {
-    if(url.exists(url)){
-      doc <- try(read_html(url))}
-  }
+      doc <- try(
+          read_html(url)
+        )}
   return(doc)
 }
 
 
 redditRSS <- function(feed){
   
-  doc <- safe_html_feed(feed)
+  doc <- html_feed(feed)
   
   tibble(
     item_title = html_nodes(doc, "title") %>%
@@ -89,13 +100,30 @@ redditRSS <- function(feed){
       map_df(~as.list(.)) %>%
       slice(-1) %>%
       .$href
-  )
+  ) %>%
+    clean_tibble()
+}
+
+
+kdRSS <- function(feed){
+  
+  doc <- html_feed(feed)
+  
+  tibble(
+    item_title = html_nodes(doc, "title") %>%
+      html_text(),
+    item_link = html_nodes(doc, "link") %>%
+      map(xml_attrs) %>%
+      map_df(~as.list(.)) %>%
+      .$href
+  ) %>%
+    clean_tibble()
 }
 
 
 soRSS <- function(feed){
   
-  doc <- read_html(feed)
+  doc <- html_feed(feed)
   
   tibble(
     item_title = html_nodes(doc, "title") %>%
@@ -105,13 +133,15 @@ soRSS <- function(feed){
       map_df(~as.list(.)) %>%
       slice(-1) %>%
       .$href
-  )
+  ) %>%
+    clean_tibble()
+
 }
 
 
 listScrape <- function(url, li, a) {
   
-  doc <- read_html(url)
+  doc <- html_feed(url)
   
   tibble(
     item_title = html_nodes(doc, li) %>%
@@ -120,15 +150,6 @@ listScrape <- function(url, li, a) {
     item_link = html_nodes(doc, a) %>%
       html_attr('href') %>%
       trimws()
-  )
+  ) %>%
+    clean_tibble()
 }
-
-clean_titles_links <- function(tb) {
-  tb %>%
-    select("item_title","item_link") %>%
-    lapply(., function(x) gsub("[[:cntrl:]]", "", x)) %>%
-    lapply(., function(x) gsub("\u00E2", "'", x)) %>%
-    as_tibble()
-}
-
-
