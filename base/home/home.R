@@ -135,8 +135,12 @@ home <- function(input, output, session, login_info) {
                                      ),
                                      div(style = 'padding-top: 15px;',
                                          fluidRow(class = 'shuttle-box-1',
-                                                  div(style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
-                                                      htmlOutput(session$ns("dsfeed_header")), class = 'header-underline'),
+                                                  div(class = 'header-underline-scroll',
+                                                      style = 'font-size: 18px; text-align: center; padding-bottom: 5px;',
+                                                      div(htmlOutput(session$ns("arrow_left")), style = 'display: inline-block;'),
+                                                      div(htmlOutput(session$ns("dsfeed_header")), style = 'display: inline-block;'),
+                                                      div(htmlOutput(session$ns("arrow_right")), style = 'display: inline-block;')
+                                                      ),
                                                   div(style = 'padding: 10px 15px 0 15px;',
                                                       uiOutput(session$ns("dsfeeds"))
                                                   )
@@ -383,33 +387,68 @@ home <- function(input, output, session, login_info) {
   
   # Data Science Feeds ----
   
+  dsfeed_list <- reactiveVal(c("reddit","kdnuggets","kaggle","R_MLlist","rbloggers"))
+  dsfeed <- reactiveVal()
+  
   observe({
-    refresh()
-    feed <- c("reddit","kdnuggets","kaggle","R_MLlist","rbloggers") %>% sample(.,1)
+    dsfeed(dsfeed_list() %>% sample(.,1))
+  })
+
+  # Scrolling through the feeds
+  output$arrow_left <- renderText({
+    ('<a id="home-scroll_left" href="" class="action-button shiny-bound-input"><i class="fas fa-chevron-left"></i></a>')
+  })
+  
+  output$arrow_right <- renderText({
+    '<a id="home-scroll_right" href="" class="action-button shiny-bound-input"><i class="fas fa-chevron-right"></i></a>'
+  })
+  
+  observeEvent(input$scroll_left, {
+    i = which(dsfeed_list() == dsfeed())
+    if(i > 1) {
+      i = i - 1
+    } else if(i == 1) {
+      i = length(dsfeed_list())
+    }
+    dsfeed(dsfeed_list()[i])
+  })
+  
+  observeEvent(input$scroll_right, {
+    i = which(dsfeed_list() == dsfeed())
+    if(i < length(dsfeed_list())) {
+      i = i + 1
+    } else if(i == length(dsfeed_list())) {
+      i = 1
+    }
+    dsfeed(dsfeed_list()[i])
+  })
+
+  
+  observeEvent(dsfeed(), {
     
-    if(feed == "reddit") {
+    if(dsfeed() == "reddit") {
       output$dsfeed_header <- renderText('<a href="https://www.reddit.com/r/datascience/" target="_blank">r/DataScience</a>')
       tb <- atomFeed('https://www.reddit.com/r/datascience/.rss')
       
-    } else if (feed == "kdnuggets") {
+    } else if (dsfeed() == "kdnuggets") {
       output$dsfeed_header <- renderText('<a href="https://www.kdnuggets.com/news/index.html" target="_blank">KDnuggets</a>')
       tb <- xmlFeed("https://www.kdnuggets.com/feed")
       
-    } else if(feed == "kaggle") {
+    } else if(dsfeed() == "kaggle") {
       output$dsfeed_header <- renderText('<a href="https://medium.com/kaggle-blog" target="_blank">Kaggle Blog</a>')
       tb <- xmlFeed("https://medium.com/feed/kaggle-blog")
       
-    } else if(feed == "R_MLlist") {
+    } else if(dsfeed() == "R_MLlist") {
       output$dsfeed_header <- renderText('<a href="https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24" target="_blank">R ML Packages</a>')
       tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
         sample_n(.,4)
       
-    } else if (feed == "rbloggers") {
+    } else if (dsfeed() == "rbloggers") {
       output$dsfeed_header <- renderText('<a href="https://www.r-bloggers.com/" target="_blank">R-bloggers</a>')
       tb <- xmlFeed("https://feeds.feedburner.com/RBloggers")
     }
 
-    if(feed == "R_MLlist") {
+    if(dsfeed() == "R_MLlist") {
       headline <- gsub(".*- ","",tb$item_title)
     } else { 
       headline <- tb$item_title
@@ -421,7 +460,7 @@ home <- function(input, output, session, login_info) {
           HTML()
       })
     })
-  })
+  }, ignoreNULL = FALSE)
   
   output$dsfeeds <- renderUI({
     lapply(as.list(seq_len(4)), function(i) {
@@ -433,6 +472,7 @@ home <- function(input, output, session, login_info) {
       )
     })
   })
+
   
   # S&P500 Ticker Search and Charts ----
   
