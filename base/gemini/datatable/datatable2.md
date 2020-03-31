@@ -3,6 +3,7 @@
 <p class = "gemini-font">
 How to get your table to react when you click on a cell.
 </p>
+What you will learn:
 * Add *cell_clicked* to your *DT::datatable*.
 * Formatting basics in *DT::datatable*.
 

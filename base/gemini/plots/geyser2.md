@@ -3,6 +3,7 @@
 <p class = "gemini-font">
 How to improve the look and feel of your app.
 </p>
+What you will learn:
 * Add static text.
 * Format basics for text, boxes, and plots.
 
