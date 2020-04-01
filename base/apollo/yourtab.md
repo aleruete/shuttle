@@ -4,17 +4,13 @@
 <hr>
 
 #### <font size = 4>*All Your Work in One Place*</font>
-<font class = "yourtab-body">Save all your code and modules under the Apollo Mission. Starting side projects inside Shuttle makes it easy to switch between projects, connect projects to one another, and manage your code in a Git repository.</font>
+<font class = "yourtab-body">Apollo is your personal work space within Shuttle where you can save your code and modules. Use Apollo to switch between projects, connect projects to one another, and manage your code in a Git repository.</font>
 
-#### <font size = 4>*Always Building Up*</font>
-<font class = "yourtab-body">Don't underestimate the power of having all your hard work in one spot - particularly as a beginner. It's easy to come back to a project when you feel like you are constantly improving it. As a beginner, this can be difficult though. It can be hard to think of projects to work on and when you do they feel unimpressive and disjointed.  
-
-However, when all your work is in one place it's much easier to see improvement and create overlapping projects. Shuttle is all about building up and keeping you motivated.
+#### <font size = 4>*Always Building*</font>
+<font class = "yourtab-body">Having all your work in one spot means you can come back to it any time. This is a great way to track your progress and keep you motivated to build more. It also allows you to take your existing projects to the next level any time, or connect them with overlapping projects.
 </font>
 
-#### <font size = 4>*Why Shiny?*</font>
-<font class = "yourtab-body">Most people start learn how to code because they want to build something cool or do something fun with those skills. But learning how to code can be really hard and, at times, no fun at all. The best way to stay motivated is to focus on solving problems inside fun side projects. And nothing is more fun than building your own app.
-
-The Shiny package gives us an easy way to build our own custom, interactive web applications. Using Shiny, we will build all sorts of applications that you can use for your work or just messing around in your free time.</font>
+#### <font size = 4>*Interactive Applications*</font>
+<font class = "yourtab-body">Most people learn how to code because they want to build something cool and have fun with new skills. Like learning any new skill it can be hard and, at times, no fun at all. One way around this is to build something exciting from the get go, and focus on solving problems within it. Using the <a href="https://shiny.rstudio.com/" target="_blank">Shiny package</a>, you get to build your own custom, interactive apps from day one.  You can use the applications you create for work, or just to mess around with in your free time.</font>
 
 ##### Click the YouTube icon above and let's get started!
