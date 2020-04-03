@@ -440,7 +440,7 @@ home <- function(input, output, session, login_info) {
       
     } else if(dsfeed() == "R_MLlist") {
       output$dsfeed_header <- renderText('<a href="https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24" target="_blank">R ML Packages</a>')
-      tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(267) li", "ul:nth-child(267) a") %>%
+      tb <- listScrape("https://github.com/josephmisiti/awesome-machine-learning#general-purpose-machine-learning-24","ul:nth-child(270) li", "ul:nth-child(270) a") %>%
         sample_n(.,4)
       
     } else if (dsfeed() == "rbloggers") {
