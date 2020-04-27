@@ -199,10 +199,6 @@
   visibility:hidden;
 }
 
-.home-selectize-input .selectize-input::after{
-  visibility:hidden;
-}
-
 .home-selectize-input-nobox .selectize-input{
   border: 0;
   padding: 0;
